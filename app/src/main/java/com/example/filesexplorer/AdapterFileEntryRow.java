@@ -1,4 +1,4 @@
-package com.example.fileexplorer;
+package com.example.filesexplorer;
 
 import java.util.ArrayList;
 

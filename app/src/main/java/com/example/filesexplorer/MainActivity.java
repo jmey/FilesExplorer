@@ -1,4 +1,4 @@
-package com.example.fileexplorer;
+package com.example.filesexplorer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 	    	fragmentFiles.getAdapter().notifyDataSetChanged();
 	    	getActionBar().setTitle(fileAndroid.getFile().getPath());
     	} catch (Exception e) {
-    		// Trouver pourquoi certains dossiers soulèvent une exception ... problème d'autorisation ?
+    		// Trouver pourquoi certains dossiers soulï¿½vent une exception ... problï¿½me d'autorisation ?
     		Toast.makeText(this, "Ca marche pas...", Toast.LENGTH_SHORT).show();
     	}
     }

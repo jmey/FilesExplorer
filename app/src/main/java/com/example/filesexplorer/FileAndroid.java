@@ -1,4 +1,4 @@
-package com.example.fileexplorer;
+package com.example.filesexplorer;
 
 import java.io.File;
 import java.util.Date;
@@ -10,7 +10,7 @@ public class FileAndroid {
 	private long size;
 	private int icon;
 	private Date date;
-	private boolean isParent;		// Peut-être à modifier ... sert à identifier le dossier nommé ".."
+	private boolean isParent;		// Peut-ï¿½tre ï¿½ modifier ... sert ï¿½ identifier le dossier nommï¿½ ".."
 	private static HashMap<String, Integer> extensions;	// static pour ne garder qu'une seule instance 
 	
 	public FileAndroid(File file) {

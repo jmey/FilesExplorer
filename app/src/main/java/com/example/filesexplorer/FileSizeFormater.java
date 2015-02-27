@@ -1,4 +1,4 @@
-package com.example.fileexplorer;
+package com.example.filesexplorer;
 
 import java.text.DecimalFormat;
 
@@ -14,13 +14,12 @@ public class FileSizeFormater {
      */
     private static final long[] CST_SIZE = {1024, 1024 * 1024, 1024 * 1024 * 1024};
     /**
-     * Constante unité
+     * Constante unitï¿½
      */
     private static final String[] CST_UNITS = {"Ko", "Mo", "Go"};
  
     /**
-     * Afficher la taille du fichier formatée
-     * @param long taille en octet
+     * Afficher la taille du fichier formatï¿½e
      * @return string
      */
     public static String format(final long value) {
@@ -37,7 +36,7 @@ public class FileSizeFormater {
     }
  
     /**
-     * Arrondir et ajouter l'unité
+     * Arrondir et ajouter l'unitï¿½
      * @param size
      * @param unit
      * @return
