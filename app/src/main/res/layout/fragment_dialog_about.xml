@@ -12,20 +12,34 @@
         android:gravity="center_vertical">
         <ImageView
 	        android:id="@+id/app_icon"
-	        android:layout_width="70dp"
-	        android:layout_height="70dp"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
 	        android:padding="4dp"
 	        android:src="@drawable/icon_folder">
 	    </ImageView>
-	    
-	    <TextView 
-	        android:id="@+id/app_name"
-	    	android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:padding="4dp"
-	        android:text="@string/app_name"
-	        android:textStyle="bold"
-	        android:textSize="30sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/app_name"
+                android:textStyle="bold"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/app_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/app_version"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 
@@ -37,12 +51,6 @@
         android:padding="4dp"
         android:text="@string/app_description"/>
     
-    <TextView 
-        android:id="@+id/app_version"
-    	android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_description"
-        android:padding="4dp"
-        android:text="@string/app_version"/>
+
 
 </RelativeLayout>
