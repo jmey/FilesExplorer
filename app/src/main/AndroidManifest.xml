@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.filesexplorer"
-    android:versionName="SetUp" android:versionCode="0.1.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.filesexplorer"
+    android:versionName="SetUp" android:versionCode="1">
 
     <uses-sdk
         android:minSdkVersion="16"

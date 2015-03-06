@@ -1,12 +1,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.fileexplorer.MainActivity" >
+    tools:context="com.example.filesexplorer.MainActivity" >
+
+    <item
+        android:id="@+id/action_about"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_about"/>
 
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:showAsAction="ifRoom"
+        android:title="@string/action_settings"/>
+
+    <item
+        android:id="@+id/action_sorting"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_sorting"/>
+
+    <item
+        android:id="@+id/action_displaying"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_displaying"/>
 
 </menu>
