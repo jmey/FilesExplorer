@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <ImageView
+        android:id="@+id/file_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerCrop"
+        android:padding="3dp"
+        android:contentDescription="@string/hello_world"
+        android:src="@drawable/ic_launcher"/>
+
+    <LinearLayout
+        android:id="@+id/LL_file_information"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/file_icon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="10dp">
+        
+        <TextView
+            android:id="@+id/file_name"
+            android:text="@string/file_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+        
+        <TextView
+            android:id="@+id/file_size"
+            android:text="@string/file_size"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp" />
+    </LinearLayout>
+    
+	<TextView
+		android:id="@+id/file_date"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:layout_marginRight="20dp"
+		android:textSize="12sp"
+		android:text="@string/file_date"
+		android:lineSpacingMultiplier="0.8" />
+	
+</RelativeLayout>
