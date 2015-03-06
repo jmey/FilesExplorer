@@ -9,4 +9,5 @@ FileExplorer.iml
 .DS_Store
 /build
 
-app/src/main/res/menu/main.xml
+*.iml
+app/app.iml
