@@ -10,7 +10,7 @@
     <string name="file_date">Date</string>
 
     <string name="app_version">v.0.001</string>
-    <string name="app_description">Un explorateur de fichhhhhhiers</string>
+    <string name="app_description">A simple file explorer</string>
     <string name="action_about">About</string>
     <string name="action_sorting">Sorting</string>
     <string name="action_displaying">Displaying</string>

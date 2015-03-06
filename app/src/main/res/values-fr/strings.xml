@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FileExplorer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Paramêtres</string>
+    
+    <string name="file_name">Nom</string>
+    <string name="file_size">Taille</string>
+    <string name="file_date">Date</string>
+
+    <string name="app_version">v.0.001</string>
+    <string name="app_description">Un explorateur de fichiers</string>
+    <string name="action_about">A propos</string>
+    <string name="action_sorting">Trier</string>
+    <string name="action_displaying">Affichage</string>
+
+</resources>
