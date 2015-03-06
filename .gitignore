@@ -10,3 +10,5 @@ FileExplorer.iml
 /build
 
 app/src/main/res/menu/main.xml
+*.iml
+app/app.iml
