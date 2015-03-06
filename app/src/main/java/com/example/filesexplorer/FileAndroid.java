@@ -10,7 +10,7 @@ public class FileAndroid {
 	private long size;
 	private int icon;
 	private Date date;
-	private boolean isParent;		// Peut-�tre � modifier ... sert � identifier le dossier nomm� ".."
+	private boolean isParent;		// Peut-être à modifier ... sert à identifier le dossier nommé ".."
 	private static HashMap<String, Integer> extensions;	// static pour ne garder qu'une seule instance 
 	
 	public FileAndroid(File file) {
@@ -23,6 +23,8 @@ public class FileAndroid {
 		} else {
 			if (extensions == null) {
 				extensions = new HashMap<String, Integer>();
+				// Lit le fichier et ajoute
+				// TODO : A sortir et mettre dans un fichier
 				extensions.put("pdf", R.drawable.icon_pdf);
 				extensions.put("png", R.drawable.icon_jpg);
 				extensions.put("jpg", R.drawable.icon_jpg);

@@ -1,21 +1,33 @@
 package com.example.filesexplorer;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 	
 //	private final String TAG = getClass().getSimpleName();
 	FragmentFiles fragmentFiles;
-	
+
+    private AlertDialogRadioButton alertDialogSorting = null;
+    private AlertDialogRadioButton alertDialogDisplaying = null;
+
+    private static String[] sortingCriterias = new String[] {"Name", "Size", "Category", "Date"}; // todo : put in strings.xml
+    private static String[] displayingCriterias = new String[] {"List", "Tree", "Grid"}; // todo : put in strings.xml
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {    	
         super.onCreate(savedInstanceState);
@@ -23,7 +35,8 @@ public class MainActivity extends Activity {
         
 //        ArrayList<Object> objectEntries = getListObjects(Environment.getExternalStorageDirectory());
         ArrayList<Object> objectEntries = getListObjects(new File("/storage/sdcard0/Download"));
-        
+
+        // Création du fragment contenant la liste des fichiers si celui-ci ne l'a pas encore été
         if (fragmentFiles == null) {
 			fragmentFiles = new FragmentFiles();
 			fragmentFiles.setEntriesList(objectEntries);
@@ -33,6 +46,11 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Renvoie la liste des fichiers et dossiers contenus dans le dossier en paramètre
+     * @param directory
+     * @return une liste de File
+     */
     public ArrayList<Object> getListObjects(File directory) {
     	ArrayList<Object> res = new ArrayList<Object>();
     	
@@ -48,7 +66,7 @@ public class MainActivity extends Activity {
     	
     	return res;
     }
-    
+
     public void openDirectory(FileAndroid fileAndroid) {
     	try {
 	    	ArrayList<Object> objects = getListObjects(fileAndroid.getFile());
@@ -56,7 +74,7 @@ public class MainActivity extends Activity {
 	    	fragmentFiles.getAdapter().notifyDataSetChanged();
 	    	getActionBar().setTitle(fileAndroid.getFile().getPath());
     	} catch (Exception e) {
-    		// Trouver pourquoi certains dossiers soul�vent une exception ... probl�me d'autorisation ?
+    		// Trouver pourquoi certains dossiers soulèvent une exception ... problème d'autorisation ?
     		Toast.makeText(this, "Ca marche pas...", Toast.LENGTH_SHORT).show();
     	}
     }
@@ -81,13 +99,19 @@ public class MainActivity extends Activity {
     private void openSettings() {
     	
     }
-    
+
     private void openSorting() {
-    	
+        if (alertDialogSorting == null) {
+            alertDialogSorting = new AlertDialogRadioButton(this, sortingCriterias, 0);
+        }
+        alertDialogSorting.show();
     }
     
     private void openDisplaying() {
-    	
+        if (alertDialogDisplaying == null) {
+            alertDialogDisplaying = new AlertDialogRadioButton(this, displayingCriterias, 0);
+        }
+        alertDialogDisplaying.show();
     }
     
     @Override
