@@ -1,0 +1,31 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Général">
+        <EditTextPreference
+            android:key="pref_main_directory"
+            android:title="@string/pref_main_directory"
+            android:defaultValue="@string/download_directory"
+            android:summary="@string/download_directory">
+        </EditTextPreference>
+
+        <EditTextPreference
+            android:key="pref_displaying"
+            android:title="@string/pref_displaying">
+        </EditTextPreference>
+
+        <EditTextPreference
+            android:key="pref_text_size"
+            android:title="@string/pref_text_size"
+            android:defaultValue="20"
+            android:numeric="integer">
+        </EditTextPreference>
+
+        <CheckBoxPreference
+            android:key="pref_hidden_file"
+            android:title="@string/pref_hidden_file">
+        </CheckBoxPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

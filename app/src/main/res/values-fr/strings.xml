@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">FileExplorer</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Paramêtres</string>
+    <string name="action_settings">Paramètres</string>
     
     <string name="file_name">Nom</string>
     <string name="file_size">Taille</string>
@@ -15,4 +14,8 @@
     <string name="action_sorting">Trier</string>
     <string name="action_displaying">Affichage</string>
 
+    <string name="pref_main_directory">Dossier de départ</string>
+    <string name="pref_displaying">Type d\'affichage</string>
+    <string name="pref_text_size">Taille du texte</string>
+    <string name="pref_hidden_file">Fichiers et dossiers cachés</string>
 </resources>

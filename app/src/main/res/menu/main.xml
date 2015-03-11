@@ -4,23 +4,23 @@
     tools:context="com.example.filesexplorer.MainActivity" >
 
     <item
-        android:id="@+id/action_about"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_about"/>
-
-    <item
-        android:id="@+id/action_settings"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_settings"/>
+        android:id="@+id/action_displaying"
+        app:showAsAction="never"
+        android:title="@string/action_displaying"/>
 
     <item
         android:id="@+id/action_sorting"
-        android:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:title="@string/action_sorting"/>
 
     <item
-        android:id="@+id/action_displaying"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_displaying"/>
+        android:id="@+id/action_settings"
+        app:showAsAction="never"
+        android:title="@string/action_settings"/>
+
+    <item
+        android:id="@+id/action_about"
+        app:showAsAction="never"
+        android:title="@string/action_about"/>
 
 </menu>
