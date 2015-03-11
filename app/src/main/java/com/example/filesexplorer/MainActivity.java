@@ -83,19 +83,21 @@ public class MainActivity extends Activity {
     }
 
     public void openFile(FileAndroid fileAndroid) {
-        // Lancer un intent selon le type de fichier
-        Toast.makeText(this, "Lancement d'un intent... on verra plus tard", Toast.LENGTH_SHORT).show();
+        if (fileAndroid.getExtension().equals("pdf")) {
+            //ouvre le fichier (pour le moment for pdf only)
+            Intent target = new Intent(Intent.ACTION_VIEW);
+            target.setDataAndType(Uri.fromFile(fileAndroid.getFile()),"application/pdf");
+            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-        //ouvre le fichier (pour le moment for pdf only)
-        Intent target = new Intent(Intent.ACTION_VIEW);
-        target.setDataAndType(Uri.fromFile(fileAndroid.getFile()),"application/pdf");
-        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-        Intent intent = Intent.createChooser(target, "Open File");
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            // Instruct the user to install a PDF reader here, or something
+            Intent intent = Intent.createChooser(target, "Open File");
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                // Instruct the user to install a PDF reader here, or something
+            }
+        } else {
+            // Lancer un intent selon le type de fichier
+            Toast.makeText(this, "Lancement d'un intent... on verra plus tard", Toast.LENGTH_SHORT).show();
         }
     }
 

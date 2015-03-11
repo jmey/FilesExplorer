@@ -10,6 +10,7 @@ public class FileAndroid {
 	private long size;
 	private int icon;
 	private Date date;
+    private String extension;
 	private boolean isParent;		// Peut-être à modifier ... sert à identifier le dossier nommé ".."
 	private static HashMap<String, Integer> extensions;	// static pour ne garder qu'une seule instance 
 	
@@ -20,6 +21,7 @@ public class FileAndroid {
 		
 		if (file.isDirectory()) {
 			this.icon = R.drawable.icon_directory;
+            extension = "";
 		} else {
 			if (extensions == null) {
 				extensions = new HashMap<String, Integer>();
@@ -32,9 +34,9 @@ public class FileAndroid {
 				extensions.put("apk", R.drawable.icon_apk);
 				extensions.put("ogg", R.drawable.icon_ogg);
 			}
-			
-			String fichier = file.getName();
-			Integer icon = extensions.get(fichier.substring(fichier.lastIndexOf(".") + 1));
+            String fichier = file.getName();
+			extension = fichier.substring(fichier.lastIndexOf(".") + 1);
+			Integer icon = extensions.get(extension);
 			if (icon != null) {
 				this.icon = icon;
 			} else {
@@ -91,4 +93,12 @@ public class FileAndroid {
 	public void setParent(boolean isParent) {
 		this.isParent = isParent;
 	}
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
 }
