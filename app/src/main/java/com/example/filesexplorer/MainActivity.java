@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+//import com.example.filesexplorer.Activity.SettingsActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -97,7 +100,8 @@ public class MainActivity extends Activity {
     }
     
     private void openSettings() {
-    	
+       // Intent intent = new Intent(this, SettingsActivity.class);
+       // startActivity(intent);
     }
 
     private void openSorting() {
