@@ -8,10 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends Activity {
 	
@@ -77,21 +79,39 @@ public class MainActivity extends Activity {
     }
 
     public void openFile(FileAndroid fileAndroid) {
-        if (fileAndroid.getExtension().equals("pdf")) {
-            //ouvre le fichier (pour le moment for pdf only)
-            Intent target = new Intent(Intent.ACTION_VIEW);
-            target.setDataAndType(Uri.fromFile(fileAndroid.getFile()),"application/pdf");
-            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        String extension = fileAndroid.getExtension();
+        String[] music = {"mp3", "ogg"};
+        String[] image = {"jpeg", "jpg", "png"};
+        String[] video = {"avi", "mp4"};
+        Intent target = new Intent(Intent.ACTION_VIEW);
+        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
+        boolean lanceIntent = true;
+
+        if(extension != null)
+        {
+            MimeTypeMap mime = MimeTypeMap.getSingleton();
+            String sMime = mime.getMimeTypeFromExtension(extension);
+            if(sMime != null)
+            {
+                target.setDataAndType(Uri.fromFile(fileAndroid.getFile()), mime.getMimeTypeFromExtension(extension));
+            }
+            else { lanceIntent=false; }
+        }
+        else { lanceIntent=false; }
+
+        if(lanceIntent) {
             Intent intent = Intent.createChooser(target, "Open File");
             try {
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 // Instruct the user to install a PDF reader here, or something
             }
-        } else {
-            // Lancer un intent selon le type de fichier
-            Toast.makeText(this, "Lancement d'un intent... on verra plus tard", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Ce fichier n'est pas géré", Toast.LENGTH_SHORT).show();
+            lanceIntent = false;
         }
     }
 
