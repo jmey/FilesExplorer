@@ -15,4 +15,28 @@
     <string name="action_sorting">Sorting</string>
     <string name="action_displaying">Displaying</string>
 
+    <string name="pref_main_directory">Dossier de démarrage</string>
+    <string name="pref_displaying">Affichage</string>
+    <string name="pref_text_size">Taille du texte</string>
+    <string name="pref_hidden_file">Affichage des fichiers et dossiers cachés</string>
+
+    <string name="quit">Quitter l\'application</string>
+    <string name="quit_confirmation">Voulez-vous vraiment quitter l\'application ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+
+    <!-- préferences -->
+    <string name="displayingpreferencetitle">Affichage</string>
+    <string name="download_directory">/storage/sdcard0</string>
+    <string-array name="listentries">
+        <item>Vue liste</item>
+        <item>Vue grille</item>
+        <item>Vue arbre</item>
+    </string-array>
+    <string-array name="listvalues">
+        <item>1iste</item>
+        <item>grille</item>
+        <item>arbre</item>
+    </string-array>
+
 </resources>

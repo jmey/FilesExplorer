@@ -198,15 +198,15 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Quitter")
-                    .setMessage("Message confirmation de quittation")
-                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.quit)
+                    .setMessage(R.string.quit_confirmation)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             activity.finish();
                         }
                     })
-                    .setNegativeButton("Non", null)
+                    .setNegativeButton(R.string.no, null)
                     .show();
         }
     }

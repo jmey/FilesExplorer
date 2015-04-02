@@ -19,19 +19,24 @@
     <string name="pref_text_size">Text size</string>
     <string name="pref_hidden_file">Hidden file</string>
 
+    <string name="quit">Quit the application</string>
+    <string name="quit_confirmation">Do you really want to quit the application?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 
     <!-- préferences -->
-    <string name="displayingpreferencetitle">Displaying preference</string>
+    <string name="displayingpreferencetitle">Displaying</string>
     <string name="download_directory">/storage/sdcard0</string>
     <string-array name="listentries">
-        <item>Vue liste</item>
-        <item>Vue grille</item>
-        <item>Vue arbre</item>
+        <item>List view</item>
+        <item>Grid view</item>
+        <item>Tree view</item>
     </string-array>
     <string-array name="listvalues">
-        <item>1iste</item>
-        <item>grille</item>
-        <item>arbre</item>
+        <item>1ist</item>
+        <item>grid</item>
+        <item>tree</item>
     </string-array>
 
 </resources>

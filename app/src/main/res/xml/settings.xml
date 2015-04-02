@@ -14,7 +14,8 @@
             android:key="pref_displaying"
             android:title="@string/displayingpreferencetitle"
             android:entries="@array/listentries"
-            android:entryValues="@array/listvalues" />
+            android:entryValues="@array/listvalues"
+            android:defaultValue="0"/>
 
         <EditTextPreference
             android:key="pref_text_size"
