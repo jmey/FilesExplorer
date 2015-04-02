@@ -11,7 +11,7 @@ public class FileAndroid {
 	private int icon;
 	private Date date;
     private String extension;
-	//private boolean isParent;		// Peut-être à modifier ... sert à identifier le dossier nommé ".."
+	private boolean isBackDirectory;		// Peut-être à modifier ... sert à identifier le dossier nommé de retour
 	private static HashMap<String, Integer> extensions;	// static pour ne garder qu'une seule instance 
 	
 	public FileAndroid(File file) {
@@ -20,7 +20,7 @@ public class FileAndroid {
 		this.date = new Date(file.lastModified());
 		
 		if (file.isDirectory()) {
-			this.icon = R.drawable.icon_directory;
+            this.icon = R.drawable.icon_directory;
             extension = "";
 		} else {
 			if (extensions == null) {
@@ -40,15 +40,16 @@ public class FileAndroid {
 			if (icon != null) {
 				this.icon = icon;
 			} else {
-				this.icon = R.drawable.ic_launcher;
-			}
+                this.icon = R.drawable.ic_launcher;
+            }
 		}
 	}
 	
-	/*public FileAndroid(File file, boolean isParent) {
+	public FileAndroid(File file, boolean isBackDirectory) {
 		this(file);
-		this.isParent = isParent;
-	}*/
+        this.isBackDirectory = isBackDirectory;
+        this.icon = R.drawable.icon_back;
+	}
 
 	public File getFile() {
 		return file;
@@ -86,13 +87,13 @@ public class FileAndroid {
 		return file.isDirectory();
 	}
 
-	/*public boolean isParent() {
-		return isParent;
-	}*/
+	public boolean isBackDirectory() {
+		return isBackDirectory;
+	}
 
-	/*public void setParent(boolean isParent) {
-		this.isParent = isParent;
-	}*/
+	public void setBackDirectory(boolean isBackDirectory) {
+		this.isBackDirectory = isBackDirectory;
+	}
 
     public String getExtension() {
         return extension;

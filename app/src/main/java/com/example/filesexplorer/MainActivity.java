@@ -1,8 +1,10 @@
 package com.example.filesexplorer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -20,6 +22,7 @@ import java.util.Arrays;
 public class MainActivity extends Activity {
 	
 //	private final String TAG = getClass().getSimpleName();
+    private MainActivity activity;
 	private static FragmentFiles fragmentFiles;
     File currentDirectory;
 
@@ -35,20 +38,21 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-              
+
+        activity = this;
 
         // Création du fragment contenant la liste des fichiers si celui-ci ne l'a pas encore été
         if (fragmentFiles == null) {
             SP = PreferenceManager.getDefaultSharedPreferences(this);
-            ArrayList<Object> objectEntries = getListObjects(new File(SP.getString("pref_main_directory", "")));
+            currentDirectory = new File(SP.getString("pref_main_directory", ""));
+            ArrayList<Object> objectEntries = getListObjects(currentDirectory);
 			fragmentFiles = new FragmentFiles();
 			fragmentFiles.setEntriesList(objectEntries);
+            getActionBar().setHomeButtonEnabled(true);
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_files, fragmentFiles);
         transaction.commit();
-
-        getActionBar().setHomeButtonEnabled(true);
     }
 
     /**
@@ -61,7 +65,8 @@ public class MainActivity extends Activity {
     	
     	if (directory.exists()) {
     		if (!directory.getPath().equals("/")) {	// Bah oui, la racine n'a pas de parent la pauvre :|
-    			res.add(new FileAndroid(directory.getParentFile()));
+                FileAndroid backDirectory = new FileAndroid(directory.getParentFile(), true);
+    			res.add(backDirectory);
     		}
     		File[] files = directory.listFiles();
 	    	for (File file : files) {
@@ -191,7 +196,18 @@ public class MainActivity extends Activity {
         try {
             openDirectory(new FileAndroid(currentDirectory.getParentFile()));
         } catch (Exception e) {
-            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Quitter")
+                    .setMessage("Message confirmation de quittation")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            activity.finish();
+                        }
+                    })
+                    .setNegativeButton("Non", null)
+                    .show();
         }
     }
 }
