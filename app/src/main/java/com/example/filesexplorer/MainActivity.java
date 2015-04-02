@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
@@ -26,16 +28,18 @@ public class MainActivity extends Activity {
     private static String[] sortingCriterias = new String[] {"Name", "Size", "Category", "Date"}; // todo : put in strings.xml
     private static String[] displayingCriterias = new String[] {"List", "Tree", "Grid"}; // todo : put in strings.xml
 
+    private SharedPreferences SP;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {    	
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-//        ArrayList<Object> objectEntries = getListObjects(Environment.getExternalStorageDirectory());
-        ArrayList<Object> objectEntries = getListObjects(new File(getString(R.string.download_directory)));
+              
 
         // Création du fragment contenant la liste des fichiers si celui-ci ne l'a pas encore été
         if (fragmentFiles == null) {
+            SP = PreferenceManager.getDefaultSharedPreferences(this);
+            ArrayList<Object> objectEntries = getListObjects(new File(SP.getString("pref_main_directory", "")));
 			fragmentFiles = new FragmentFiles();
 			fragmentFiles.setEntriesList(objectEntries);
 			FragmentTransaction transaction = getFragmentManager().beginTransaction();
