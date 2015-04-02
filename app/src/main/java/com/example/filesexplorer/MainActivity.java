@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-              
+
 
         // Création du fragment contenant la liste des fichiers si celui-ci ne l'a pas encore été
         if (fragmentFiles == null) {
