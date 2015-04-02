@@ -20,7 +20,8 @@ import java.util.Arrays;
 public class MainActivity extends Activity {
 	
 //	private final String TAG = getClass().getSimpleName();
-	FragmentFiles fragmentFiles;
+	private static FragmentFiles fragmentFiles;
+    File currentDirectory;
 
     private AlertDialogRadioButton alertDialogSorting = null;
     private AlertDialogRadioButton alertDialogDisplaying = null;
@@ -42,10 +43,11 @@ public class MainActivity extends Activity {
             ArrayList<Object> objectEntries = getListObjects(new File(SP.getString("pref_main_directory", "")));
 			fragmentFiles = new FragmentFiles();
 			fragmentFiles.setEntriesList(objectEntries);
-			FragmentTransaction transaction = getFragmentManager().beginTransaction();
-			transaction.replace(R.id.fragment_container_files, fragmentFiles);
-			transaction.commit();
         }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container_files, fragmentFiles);
+        transaction.commit();
+
         getActionBar().setHomeButtonEnabled(true);
     }
 
@@ -59,7 +61,7 @@ public class MainActivity extends Activity {
     	
     	if (directory.exists()) {
     		if (!directory.getPath().equals("/")) {	// Bah oui, la racine n'a pas de parent la pauvre :|
-    			res.add(new FileAndroid(directory.getParentFile(), true));
+    			res.add(new FileAndroid(directory.getParentFile()));
     		}
     		File[] files = directory.listFiles();
 	    	for (File file : files) {
@@ -76,6 +78,7 @@ public class MainActivity extends Activity {
 	    	fragmentFiles.setEntriesList(objects);
 	    	fragmentFiles.getAdapter().notifyDataSetChanged();
 	    	getActionBar().setTitle(fileAndroid.getFile().getPath());
+            currentDirectory = fileAndroid.getFile();
     	} catch (Exception e) {
     		// Trouver pourquoi certains dossiers soulèvent une exception ... problème d'autorisation ?
     		Toast.makeText(this, "Ca marche pas...", Toast.LENGTH_SHORT).show();
@@ -185,6 +188,10 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        try {
+            openDirectory(new FileAndroid(currentDirectory.getParentFile()));
+        } catch (Exception e) {
+            super.onBackPressed();
+        }
     }
 }

@@ -11,7 +11,7 @@ public class FileAndroid {
 	private int icon;
 	private Date date;
     private String extension;
-	private boolean isParent;		// Peut-être à modifier ... sert à identifier le dossier nommé ".."
+	//private boolean isParent;		// Peut-être à modifier ... sert à identifier le dossier nommé ".."
 	private static HashMap<String, Integer> extensions;	// static pour ne garder qu'une seule instance 
 	
 	public FileAndroid(File file) {
@@ -45,10 +45,10 @@ public class FileAndroid {
 		}
 	}
 	
-	public FileAndroid(File file, boolean isParent) {
+	/*public FileAndroid(File file, boolean isParent) {
 		this(file);
 		this.isParent = isParent;
-	}
+	}*/
 
 	public File getFile() {
 		return file;
@@ -86,13 +86,13 @@ public class FileAndroid {
 		return file.isDirectory();
 	}
 
-	public boolean isParent() {
+	/*public boolean isParent() {
 		return isParent;
-	}
+	}*/
 
-	public void setParent(boolean isParent) {
+	/*public void setParent(boolean isParent) {
 		this.isParent = isParent;
-	}
+	}*/
 
     public String getExtension() {
         return extension;

@@ -62,11 +62,11 @@ public class FileEntryRow extends RelativeLayout {
 	
 	private void displayFileName() {
 		if (fileNameTextView != null) {
-			if (file.isParent()) {
-				fileNameTextView.setText("..");
-			} else {
+			//if (file.isParent()) {
+			//	fileNameTextView.setText("..");
+			//} else {
 				fileNameTextView.setText(file.getFile().getName());
-			}
+			//}
 		}
 	}
 
