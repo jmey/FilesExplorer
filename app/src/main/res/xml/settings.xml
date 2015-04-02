@@ -10,10 +10,11 @@
             android:summary="@string/download_directory">
         </EditTextPreference>
 
-        <EditTextPreference
+        <ListPreference
             android:key="pref_displaying"
-            android:title="@string/pref_displaying">
-        </EditTextPreference>
+            android:title="@string/displayingpreferencetitle"
+            android:entries="@array/listentries"
+            android:entryValues="@array/listvalues" />
 
         <EditTextPreference
             android:key="pref_text_size"

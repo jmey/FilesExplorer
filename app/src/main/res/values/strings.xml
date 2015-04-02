@@ -19,5 +19,19 @@
     <string name="pref_text_size">Text size</string>
     <string name="pref_hidden_file">Hidden file</string>
 
+
+    <!-- préferences -->
+    <string name="displayingpreferencetitle">Displaying preference</string>
     <string name="download_directory">/storage/sdcard0</string>
+    <string-array name="listentries">
+        <item>Vue liste</item>
+        <item>Vue grille</item>
+        <item>Vue arbre</item>
+    </string-array>
+    <string-array name="listvalues">
+        <item>1iste</item>
+        <item>grille</item>
+        <item>arbre</item>
+    </string-array>
+
 </resources>
