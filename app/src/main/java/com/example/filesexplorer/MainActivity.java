@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends Activity {
 	
@@ -44,11 +43,15 @@ public class MainActivity extends Activity {
         // Création du fragment contenant la liste des fichiers si celui-ci ne l'a pas encore été
         if (fragmentFiles == null) {
             SP = PreferenceManager.getDefaultSharedPreferences(this);
-            currentDirectory = new File(SP.getString("pref_main_directory", ""));
+//            currentDirectory = new File(SP.getString("pref_main_directory", ""));
+            currentDirectory = new File("/sdcard/Download");
             ArrayList<Object> objectEntries = getListObjects(currentDirectory);
 			fragmentFiles = new FragmentFiles();
 			fragmentFiles.setEntriesList(objectEntries);
-            getActionBar().setHomeButtonEnabled(true);
+
+            if (getActionBar() != null) {
+                getActionBar().setHomeButtonEnabled(true);
+            }
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_files, fragmentFiles);
@@ -82,8 +85,10 @@ public class MainActivity extends Activity {
 	    	ArrayList<Object> objects = getListObjects(fileAndroid.getFile());
 	    	fragmentFiles.setEntriesList(objects);
 	    	fragmentFiles.getAdapter().notifyDataSetChanged();
-	    	getActionBar().setTitle(fileAndroid.getFile().getPath());
             currentDirectory = fileAndroid.getFile();
+            if (getActionBar() != null) {
+                getActionBar().setTitle(fileAndroid.getFile().getPath());
+            }
     	} catch (Exception e) {
     		// Trouver pourquoi certains dossiers soulèvent une exception ... problème d'autorisation ?
     		Toast.makeText(this, "Ca marche pas...", Toast.LENGTH_SHORT).show();
@@ -159,26 +164,21 @@ public class MainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-        case android.R.id.home:
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
             openDirectory(new FileAndroid(new File(getString(R.string.download_directory))));
-            break;
-        case R.id.action_about:
-        	openAbout();
-        	break;
-        case R.id.action_settings:
-        	openSettings();
-        	break;
-        case R.id.action_sorting:
-        	openSorting();
-        	break;
-        case R.id.action_displaying:
-        	openDisplaying();
-        	break;
-        default:
-        	break;
+        } else if (id == R.id.action_about) {
+            openAbout();
+        } else if (id == R.id.action_settings) {
+            openSettings();
+        } else if (id == R.id.action_sorting) {
+            openSorting();
+        } else if (id == R.id.action_displaying) {
+            openDisplaying();
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override

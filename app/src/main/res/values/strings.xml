@@ -24,6 +24,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <string name="button_explorer">Parcourir..</string>
+
 
     <!-- préferences -->
     <string name="displayingpreferencetitle">Displaying</string>
@@ -38,5 +40,6 @@
         <item>grid</item>
         <item>tree</item>
     </string-array>
+    <string name="title_activity_main_application">MainApplicationActivity</string>
 
 </resources>

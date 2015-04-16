@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MainApplication</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_launch_activity">Parcourir..</string>
+</resources>
