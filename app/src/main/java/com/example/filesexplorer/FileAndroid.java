@@ -1,5 +1,7 @@
 package com.example.filesexplorer;
 
+import android.graphics.Bitmap;
+
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,6 +52,10 @@ public class FileAndroid {
         this.isBackDirectory = isBackDirectory;
         this.icon = R.drawable.icon_back;
 	}
+
+    public boolean isPicture() {
+        return getExtension().equals("png") || getExtension().equals("jpg");
+    }
 
 	public File getFile() {
 		return file;

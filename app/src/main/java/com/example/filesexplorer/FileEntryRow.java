@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -56,7 +58,12 @@ public class FileEntryRow extends RelativeLayout {
 	 */
 	private void displayPicture() {
 		if (fileIconView != null) {
-			fileIconView.setImageResource(file.getIcon());
+            if (file.isPicture()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getFile().getAbsolutePath());
+                fileIconView.setImageBitmap(bitmap);
+            } else {
+                fileIconView.setImageResource(file.getIcon());
+            }
 		}
 	}
 	
