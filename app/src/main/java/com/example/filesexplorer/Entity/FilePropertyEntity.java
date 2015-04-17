@@ -8,7 +8,6 @@ import com.example.filesexplorer.FileAndroid;
 public class FilePropertyEntity {
 
     private FileAndroid file;
-
     private double size;
 
     public FilePropertyEntity(FileAndroid _file) {
