@@ -1,13 +1,19 @@
 package com.example.filesexplorer;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.MimeTypeMap;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 
 public class MainApplicationActivity extends Activity {
@@ -42,14 +48,59 @@ public class MainApplicationActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    static final int FILE_CHOOSER_REQUEST = 1;
+
     public void button_explorer(View view) {
         Toast.makeText(this, "Ouverture de l'explorateur", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, FILE_CHOOSER_REQUEST);
     }
 
     public void button_go(View view) {
-        // Ouverture du fichier..
-        Toast.makeText(this, "Ouverture du fichier", Toast.LENGTH_SHORT).show();
+        TextView tv = (TextView) findViewById(R.id.filename);
+        File file = new File(tv.getText().toString());
+        if (file.exists()) {
+            FileAndroid fileAndroid = new FileAndroid(file);
+            String extension = fileAndroid.getExtension();
+            Intent target = new Intent(Intent.ACTION_VIEW);
+            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+            boolean lanceIntent = true;
+
+            if (extension != null) {
+                MimeTypeMap mime = MimeTypeMap.getSingleton();
+                String sMime = mime.getMimeTypeFromExtension(extension);
+                if (sMime != null) {
+                    target.setDataAndType(Uri.fromFile(fileAndroid.getFile()), sMime);
+                } else {
+                    lanceIntent = false;
+                }
+            } else {
+                lanceIntent = false;
+            }
+
+            if (lanceIntent) {
+                Intent intent = Intent.createChooser(target, "Open File");
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    // Instruct the user to install a PDF reader here, or something
+                }
+            } else {
+                Toast.makeText(this, "Ce fichier n'est pas géré", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Veuillez sélectionner un fichier", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == FILE_CHOOSER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                TextView tv = (TextView) findViewById(R.id.filename);
+                tv.setText(data.getStringExtra("file"));
+            }
+        }
     }
 }

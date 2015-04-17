@@ -103,6 +103,7 @@ public class FileEntryRow extends RelativeLayout {
 			@Override
 			public void onClick(View view) {
 				Activity activity = (Activity)context;
+
 				if (activity instanceof MainActivity) {
 					if (file.isDirectory()) {
 						((MainActivity)activity).openDirectory(file);
