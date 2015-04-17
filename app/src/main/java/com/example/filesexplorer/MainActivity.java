@@ -96,34 +96,10 @@ public class MainActivity extends Activity {
     }
 
     public void openFile(FileAndroid fileAndroid) {
-        String extension = fileAndroid.getExtension();
-        Intent target = new Intent(Intent.ACTION_VIEW);
-        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-        boolean lanceIntent = true;
-
-        if(extension != null) {
-            MimeTypeMap mime = MimeTypeMap.getSingleton();
-            String sMime = mime.getMimeTypeFromExtension(extension);
-            if(sMime != null) {
-                target.setDataAndType(Uri.fromFile(fileAndroid.getFile()), sMime);
-            } else {
-                lanceIntent = false;
-            }
-        } else {
-            lanceIntent = false;
-        }
-
-        if (lanceIntent) {
-            Intent intent = Intent.createChooser(target, "Open File");
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                // Instruct the user to install a PDF reader here, or something
-            }
-        } else {
-            Toast.makeText(this, "Ce fichier n'est pas géré", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent();
+        intent.putExtra("file", fileAndroid.getFile().getAbsolutePath());
+        MainActivity.this.setResult(RESULT_OK, intent);
+        MainActivity.this.finish();
     }
 
     @Override
