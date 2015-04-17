@@ -3,6 +3,7 @@ package com.example.filesexplorer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import android.app.AlertDialog;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 public class FileEntryRow extends RelativeLayout {
 //	final private static String TAG =  FileEntryRow.class.getSimpleName();
@@ -113,5 +113,14 @@ public class FileEntryRow extends RelativeLayout {
 				}
 			}
 		});
-	}
+        layoutItem.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Activity activity = (Activity)context;
+                DialogFragmentLongClick dialog = DialogFragmentLongClick.newInstance(R.string.action_about);
+                dialog.show(activity.getFragmentManager(), "FragmentTransaction.add");
+                return true;
+            }
+        });
+    }
 }
