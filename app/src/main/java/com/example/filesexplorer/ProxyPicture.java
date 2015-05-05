@@ -11,9 +11,7 @@ public class ProxyPicture {
 		private static ProxyPicture proxyPictureInstance;
 	}
 	
-	private ProxyPicture() {
-		
-	}
+	private ProxyPicture() { }
 	
 	public static ProxyPicture getInstance() {
 		if (ProxyPictureHolder.proxyPictureInstance == null) {

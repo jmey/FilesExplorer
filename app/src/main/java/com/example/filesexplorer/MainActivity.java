@@ -19,6 +19,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
+
+    public static final String PREFS_NAME = "MyPrefsFile";
 	
 //	private final String TAG = getClass().getSimpleName();
     private MainActivity activity;
@@ -31,8 +33,6 @@ public class MainActivity extends Activity {
     private static String[] sortingCriterias = new String[] {"Name", "Size", "Category", "Date"}; // todo : put in strings.xml
     private static String[] displayingCriterias = new String[] {"List", "Tree", "Grid"}; // todo : put in strings.xml
 
-    private SharedPreferences SP;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +42,9 @@ public class MainActivity extends Activity {
 
         // Création du fragment contenant la liste des fichiers si celui-ci ne l'a pas encore été
         if (fragmentFiles == null) {
-            SP = PreferenceManager.getDefaultSharedPreferences(this);
-//            currentDirectory = new File(SP.getString("pref_main_directory", ""));
-            currentDirectory = new File("/sdcard/Download");
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
+
             ArrayList<Object> objectEntries = getListObjects(currentDirectory);
 			fragmentFiles = new FragmentFiles();
 			fragmentFiles.setEntriesList(objectEntries);
@@ -100,6 +100,12 @@ public class MainActivity extends Activity {
         intent.putExtra("file", fileAndroid.getFile().getAbsolutePath());
         MainActivity.this.setResult(RESULT_OK, intent);
         MainActivity.this.finish();
+
+        String parentDirectory = fileAndroid.getFile().getParentFile().getAbsolutePath();
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("directory", parentDirectory);
+        editor.commit();
     }
 
     @Override

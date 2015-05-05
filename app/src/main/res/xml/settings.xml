@@ -3,12 +3,6 @@
 
     <PreferenceCategory
         android:title="Général">
-        <EditTextPreference
-            android:key="pref_main_directory"
-            android:title="@string/pref_main_directory"
-            android:defaultValue="@string/download_directory"
-            android:summary="@string/download_directory">
-        </EditTextPreference>
 
         <ListPreference
             android:key="pref_displaying"
