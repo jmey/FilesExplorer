@@ -1,21 +1,20 @@
 package com.example.filesexplorer;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-import android.app.AlertDialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class FileEntryRow extends RelativeLayout {
+import com.example.filesexplorer.IObservation.Observer;
+
+public class FileEntryRow extends RelativeLayout implements Observer {
 //	final private static String TAG =  FileEntryRow.class.getSimpleName();
 	
 	private RelativeLayout layoutItem;
@@ -51,16 +50,23 @@ public class FileEntryRow extends RelativeLayout {
 		displayFileSize();
 		displayDate();
 		setListeners();
-	}
+        if (file.isPicture()) {
+            if (file.getBitmap() == null) {
+                this.file.addObserver(this);
+                ProxyPicture.getInstance().setPictureByAsyncTask(file);
+            } else {
+                this.file.removeObserver(this);
+            }
+        }
+    }
 
 	/**
 	 * Displays the picture
 	 */
 	private void displayPicture() {
 		if (fileIconView != null) {
-            if (file.isPicture()) {
-                Bitmap bitmap = BitmapFactory.decodeFile(file.getFile().getAbsolutePath());
-                fileIconView.setImageBitmap(bitmap);
+            if (file.isPicture() && file.getBitmap() != null) {
+                fileIconView.setImageBitmap(file.getBitmap());
             } else {
                 fileIconView.setImageResource(file.getIcon());
             }
@@ -123,5 +129,10 @@ public class FileEntryRow extends RelativeLayout {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void refresh() {
+        displayPicture();
     }
 }
