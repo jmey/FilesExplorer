@@ -96,16 +96,16 @@ public class MainActivity extends Activity {
     }
 
     public void openFile(FileAndroid fileAndroid) {
-        Intent intent = new Intent();
-        intent.putExtra("file", fileAndroid.getFile().getAbsolutePath());
-        MainActivity.this.setResult(RESULT_OK, intent);
-        MainActivity.this.finish();
-
         String parentDirectory = fileAndroid.getFile().getParentFile().getAbsolutePath();
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("directory", parentDirectory);
         editor.commit();
+
+        Intent intent = new Intent();
+        intent.putExtra("file", fileAndroid.getFile().getAbsolutePath());
+        MainActivity.this.setResult(RESULT_OK, intent);
+        MainActivity.this.finish();
     }
 
     @Override

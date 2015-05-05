@@ -22,6 +22,12 @@
             android:key="pref_hidden_file"
             android:title="@string/pref_hidden_file">
         </CheckBoxPreference>
+
+        <Preference
+            android:key="pref_clear_prefs_file"
+            android:title="@string/pref_clear_prefs_file">
+        </Preference>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
