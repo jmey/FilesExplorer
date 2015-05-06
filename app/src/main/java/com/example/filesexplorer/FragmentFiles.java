@@ -58,7 +58,7 @@ public class FragmentFiles extends Fragment {
 	}
 
     public void setDisplayMode(DisplayMode mode) {
-        if (objectEntries != null) {
+        if (objectEntries != null && this.mode != mode) {
             adapter = new AdapterFileEntryRow(getActivity(), objectEntries, mode);
 
             if (mode == DisplayMode.GRID) {
