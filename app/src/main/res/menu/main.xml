@@ -5,22 +5,36 @@
 
     <item
         android:id="@+id/action_displaying"
-        app:showAsAction="never"
-        android:title="@string/action_displaying"/>
+        android:showAsAction="never"
+        android:title="@string/action_displaying"
+        android:enabled="false"/>
 
     <item
         android:id="@+id/action_sorting"
-        app:showAsAction="never"
-        android:title="@string/action_sorting"/>
+        android:showAsAction="never"
+        android:title="@string/action_sorting"
+        android:enabled="false"/>
 
     <item
         android:id="@+id/action_settings"
-        app:showAsAction="never"
+        android:showAsAction="never"
         android:title="@string/action_settings"/>
 
     <item
         android:id="@+id/action_about"
-        app:showAsAction="never"
+        android:showAsAction="never"
         android:title="@string/action_about"/>
+
+    <item
+        android:id="@+id/action_display_list"
+        android:title="@string/action_display_list"
+        android:icon="@drawable/icon_list"
+        android:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_display_grid"
+        android:title="@string/action_display_grid"
+        android:icon="@drawable/icon_grid"
+        android:showAsAction="ifRoom"/>
 
 </menu>

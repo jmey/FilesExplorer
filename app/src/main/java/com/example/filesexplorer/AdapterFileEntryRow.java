@@ -11,11 +11,13 @@ public class AdapterFileEntryRow extends BaseAdapter {
 
 	private Context context;
 	private ArrayList<Object> objectEntries;
+    private DisplayMode mode;
 //	final private static String TAG =  AdapterRepertory.class.getSimpleName();
 
-	public AdapterFileEntryRow(Context context, ArrayList<Object> objectEntries) {
+	public AdapterFileEntryRow(Context context, ArrayList<Object> objectEntries, DisplayMode mode) {
 		this.context = context;
 		this.objectEntries = objectEntries;
+        this.mode = mode;
 	}
 	
 	/**
@@ -25,7 +27,7 @@ public class AdapterFileEntryRow extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// Recycles the view (doesn't initialize it each time, but just modifies the content)
 		if (convertView == null) {
-			convertView = new FileEntryRow(context);
+			convertView = new FileEntryRow(context, mode);
 		}
 		((FileEntryRow)convertView).update((FileAndroid)objectEntries.get(position));
 

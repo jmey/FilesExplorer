@@ -26,10 +26,16 @@ public class FileEntryRow extends RelativeLayout implements Observer {
 	private TextView dateTextView;
 	private FileAndroid file;
 
-	public FileEntryRow(Context context) {
+	public FileEntryRow(Context context, DisplayMode mode) {
 		super(context);
 		this.context = context;
-		layoutItem = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.file_entry_row, this);
+
+        if (mode == DisplayMode.GRID) {
+            layoutItem = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.file_entry_grid, this);
+        } else if (mode == DisplayMode.LIST) {
+            layoutItem = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.file_entry_row, this);
+        }
+
 		initializeViews();
 	}
 
@@ -84,11 +90,13 @@ public class FileEntryRow extends RelativeLayout implements Observer {
 	}
 
 	private void displayFileSize() {
-		if (fileSizeTextView != null && !file.isDirectory()) {
-			fileSizeTextView.setText(FileSizeFormater.format(file.getSize()));
-		} else {
-			fileSizeTextView.setText("");
-		}
+		if (fileSizeTextView != null) {
+            if (!file.isDirectory()) {
+                fileSizeTextView.setText(FileSizeFormater.format(file.getSize()));
+            } else {
+                fileSizeTextView.setText("");
+            }
+        }
 	}
 	
 	/**

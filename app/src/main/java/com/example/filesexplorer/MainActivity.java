@@ -46,11 +46,12 @@ public class MainActivity extends Activity {
             currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
 
             ArrayList<Object> objectEntries = getListObjects(currentDirectory);
-			fragmentFiles = new FragmentFiles();
+			fragmentFiles = new FragmentFiles(DisplayMode.GRID);
 			fragmentFiles.setEntriesList(objectEntries);
 
             if (getActionBar() != null) {
                 getActionBar().setHomeButtonEnabled(true);
+                getActionBar().setTitle(currentDirectory.getPath());
             }
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -157,8 +158,12 @@ public class MainActivity extends Activity {
             openSorting();
         } else if (id == R.id.action_displaying) {
             openDisplaying();
+        } else if (id == R.id.action_display_list) {
+            fragmentFiles.setDisplayMode(DisplayMode.LIST);
+        } else if (id == R.id.action_display_grid) {
+            fragmentFiles.setDisplayMode(DisplayMode.GRID);
         } else {
-            return super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
