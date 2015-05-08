@@ -13,7 +13,9 @@
         <item>html;icon_html</item>
         <item>ico;icon_ico</item>
         <item>jpg;icon_jpg</item>
+        <item>m4a;icon_m4a</item>
         <item>mp3;icon_mp3</item>
+        <item>mp4;icon_mp4</item>
         <item>ods;icon_ods</item>
         <item>odt;icon_odt</item>
         <item>ogg;icon_ogg</item>
@@ -31,7 +33,7 @@
 
     <string-array name="list_types_picture">
         <item>jpg</item>
-        <item>pdf</item>
+        <item>png</item>
         <item>gif</item>
         <item>jpeg</item>
         <item>bmp</item>
