@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_icons">
+        <item>apk;icon_apk</item>
+        <item>avi;icon_avi</item>
+        <item>bat;icon_bat</item>
+        <item>dll;icon_dll</item>
+        <item>doc;icon_doc</item>
+        <item>docx;icon_docx</item>
+        <item>exe;icon_exe</item>
+        <item>gif;icon_gif</item>
+        <item>htm;icon_html</item>
+        <item>html;icon_html</item>
+        <item>ico;icon_ico</item>
+        <item>jpg;icon_jpg</item>
+        <item>mp3;icon_mp3</item>
+        <item>ods;icon_ods</item>
+        <item>odt;icon_odt</item>
+        <item>ogg;icon_ogg</item>
+        <item>pdf;icon_pdf</item>
+        <item>png;icon_jpg</item>
+        <item>ppt;icon_ppt</item>
+        <item>pptx;icon_pptx</item>
+        <item>rar;icon_rar</item>
+        <item>txt;icon_txt</item>
+        <item>vbs;icon_vbs</item>
+        <item>xls;icon_xls</item>
+        <item>xlsx;icon_xlsx</item>
+        <item>zip;icon_zip</item>
+    </string-array>
+
+    <string-array name="list_types_picture">
+        <item>jpg</item>
+        <item>pdf</item>
+        <item>gif</item>
+        <item>jpeg</item>
+        <item>bmp</item>
+    </string-array>
+</resources>

@@ -1,5 +1,6 @@
 package com.example.filesexplorer;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.example.filesexplorer.IObservation.Observable;
@@ -7,63 +8,72 @@ import com.example.filesexplorer.IObservation.Observer;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class FileAndroid implements Observable {
-
-
     private File file;
     private long size;
     private int icon;
-    private Bitmap bitmap = null;
+    private Bitmap bitmap;
     private Date date;
     private String extension;
     private boolean isBackDirectory;        // Peut-être à modifier ... sert à identifier le dossier nommé de retour
     private static HashMap<String, Integer> extensions;    // static pour ne garder qu'une seule instance
     private ArrayList<Observer> observers;
+    private static Context context;
+    private static List<String> typesPicture;
 
-    public FileAndroid(File file) {
+    public FileAndroid(Context context, File file) {
         this.file = file;
         this.size = file.length();
         this.date = new Date(file.lastModified());
+        this.observers = new ArrayList<Observer>();
+        this.context = context;
 
         if (file.isDirectory()) {
             this.icon = R.drawable.icon_directory;
             extension = "";
         } else {
-            if (extensions == null) {
+            if (extensions == null && context != null) {
                 extensions = new HashMap<String, Integer>();
-                // Lit le fichier et ajoute
-                // TODO : A sortir et mettre dans un fichier
-                extensions.put("pdf", R.drawable.icon_pdf);
-                extensions.put("png", R.drawable.icon_jpg);
-                extensions.put("jpg", R.drawable.icon_jpg);
-                extensions.put("mp3", R.drawable.icon_mp3);
-                extensions.put("apk", R.drawable.icon_apk);
-                extensions.put("ogg", R.drawable.icon_ogg);
+                String[] icons = context.getResources().getStringArray(R.array.list_icons);
+                int resID;
+                for (String icon : icons) {
+                    String[] split = icon.split(";");
+                    try {
+                        resID = context.getResources().getIdentifier(split[1], "drawable", context.getPackageName());
+                        extensions.put(split[0], resID);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+
             String fichier = file.getName();
             extension = fichier.substring(fichier.lastIndexOf(".") + 1);
             Integer icon = extensions.get(extension);
             if (icon != null) {
                 this.icon = icon;
             } else {
-                this.icon = R.drawable.ic_launcher;
+                this.icon = R.drawable.icon_unknown;
             }
         }
-
-        observers = new ArrayList<Observer>();
     }
 
-    public FileAndroid(File file, boolean isBackDirectory) {
-        this(file);
+    public FileAndroid(Context context, File file, boolean isBackDirectory) {
+        this(context, file);
         this.isBackDirectory = isBackDirectory;
         this.icon = R.drawable.icon_back;
     }
 
     public boolean isPicture() {
-        return getExtension().equals("png") || getExtension().equals("jpg");
+        if (typesPicture == null) {
+            typesPicture = Arrays.asList(context.getResources().getStringArray(R.array.list_types_picture));
+        }
+        return typesPicture.contains(extension);
     }
 
     public File getFile() {

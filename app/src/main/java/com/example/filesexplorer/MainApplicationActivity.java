@@ -61,7 +61,7 @@ public class MainApplicationActivity extends Activity {
         TextView tv = (TextView) findViewById(R.id.filename);
         File file = new File(tv.getText().toString());
         if (file.exists()) {
-            FileAndroid fileAndroid = new FileAndroid(file);
+            FileAndroid fileAndroid = new FileAndroid(this, file);
             String extension = fileAndroid.getExtension();
             Intent target = new Intent(Intent.ACTION_VIEW);
             target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

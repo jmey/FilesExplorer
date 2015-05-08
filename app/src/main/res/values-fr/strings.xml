@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">FileExplorer</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -28,18 +27,29 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 
+    <string name="button_explorer">Parcourir..</string>
+    <string name="button_go">Ouvrir le fichier</string>
+
     <!-- préferences -->
     <string name="displayingpreferencetitle">Affichage</string>
     <string name="download_directory">/storage/sdcard0</string>
-    <string-array name="listentries">
+    <string-array name="list_displaying_titles">
         <item>Vue liste</item>
         <item>Vue grille</item>
         <item>Vue arbre</item>
     </string-array>
-    <string-array name="listvalues">
-        <item>1iste</item>
-        <item>grille</item>
-        <item>arbre</item>
+    <string-array name="list_displaying_values">
+        <item>Liste</item>
+        <item>Grille</item>
+        <item>Arbre</item>
     </string-array>
 
+    <string-array name="list_sorting_values">
+        <item>Nom</item>
+        <item>Taille</item>
+        <item>Catégorie</item>
+        <item>Date</item>
+    </string-array>
+
+    <string name="title_activity_main_application">MainApplicationActivity</string>
 </resources>

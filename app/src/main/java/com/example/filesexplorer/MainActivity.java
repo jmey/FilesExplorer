@@ -30,9 +30,6 @@ public class MainActivity extends Activity {
     private AlertDialogRadioButton alertDialogSorting = null;
     private AlertDialogRadioButton alertDialogDisplaying = null;
 
-    private static String[] sortingCriterias = new String[] {"Name", "Size", "Category", "Date"}; // todo : put in strings.xml
-    private static String[] displayingCriterias = new String[] {"List", "Tree", "Grid"}; // todo : put in strings.xml
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +66,12 @@ public class MainActivity extends Activity {
     	
     	if (directory.exists()) {
     		if (!directory.getPath().equals("/")) {	// Bah oui, la racine n'a pas de parent la pauvre :|
-                FileAndroid backDirectory = new FileAndroid(directory.getParentFile(), true);
+                FileAndroid backDirectory = new FileAndroid(this, directory.getParentFile(), true);
     			res.add(backDirectory);
     		}
     		File[] files = directory.listFiles();
 	    	for (File file : files) {
-	    		res.add(new FileAndroid(file));
+	    		res.add(new FileAndroid(this, file));
 	    	}
     	}
     	
@@ -130,14 +127,14 @@ public class MainActivity extends Activity {
 
     private void openSorting() {
         if (alertDialogSorting == null) {
-            alertDialogSorting = new AlertDialogRadioButton(this, sortingCriterias, 0);
+            alertDialogSorting = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_sorting_values), 0);
         }
         alertDialogSorting.show();
     }
     
     private void openDisplaying() {
         if (alertDialogDisplaying == null) {
-            alertDialogDisplaying = new AlertDialogRadioButton(this, displayingCriterias, 0);
+            alertDialogDisplaying = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_displaying_values), 0);
         }
         alertDialogDisplaying.show();
     }
@@ -149,7 +146,7 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            openDirectory(new FileAndroid(new File(getString(R.string.download_directory))));
+            openDirectory(new FileAndroid(this, new File(getString(R.string.download_directory))));
         } else if (id == R.id.action_about) {
             openAbout();
         } else if (id == R.id.action_settings) {
@@ -181,7 +178,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         try {
-            openDirectory(new FileAndroid(currentDirectory.getParentFile()));
+            openDirectory(new FileAndroid(this, currentDirectory.getParentFile()));
         } catch (Exception e) {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)

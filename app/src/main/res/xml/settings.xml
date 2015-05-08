@@ -7,8 +7,8 @@
         <ListPreference
             android:key="pref_displaying"
             android:title="@string/displayingpreferencetitle"
-            android:entries="@array/listentries"
-            android:entryValues="@array/listvalues"
+            android:entries="@array/list_displaying_titles"
+            android:entryValues="@array/list_displaying_values"
             android:defaultValue="0"/>
 
         <EditTextPreference

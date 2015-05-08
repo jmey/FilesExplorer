@@ -27,23 +27,29 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <string name="button_explorer">Parcourir..</string>
-    <string name="button_go">Ouvrir le fichier</string>
-
+    <string name="button_explorer">Browse..</string>
+    <string name="button_go">Open the file</string>
 
     <!-- préferences -->
     <string name="displayingpreferencetitle">Displaying</string>
     <string name="download_directory">/storage/sdcard0</string>
-    <string-array name="listentries">
+    <string-array name="list_displaying_titles">
         <item>List view</item>
         <item>Grid view</item>
         <item>Tree view</item>
     </string-array>
-    <string-array name="listvalues">
-        <item>1ist</item>
-        <item>grid</item>
-        <item>tree</item>
+    <string-array name="list_displaying_values">
+        <item>List</item>
+        <item>Grid</item>
+        <item>Tree</item>
     </string-array>
-    <string name="title_activity_main_application">MainApplicationActivity</string>
 
+    <string-array name="list_sorting_values">
+        <item>Name</item>
+        <item>Size</item>
+        <item>Category</item>
+        <item>Date</item>
+    </string-array>
+
+    <string name="title_activity_main_application">MainApplicationActivity</string>
 </resources>
