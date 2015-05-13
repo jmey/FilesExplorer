@@ -1,10 +1,12 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Fragment;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.filesexplorer.R;
 
 public class DialogFragmentAbout extends DialogFragment {
 	public static DialogFragmentAbout newInstance(int title) {

@@ -1,10 +1,11 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.example.filesexplorer.IObservation.Observable;
-import com.example.filesexplorer.IObservation.Observer;
+import com.example.filesexplorer.Interface.IObservable;
+import com.example.filesexplorer.Interface.IObserver;
+import com.example.filesexplorer.R;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class FileAndroid implements Observable {
+public class FileAndroid implements IObservable {
     private File file;
     private long size;
     private int icon;
@@ -22,7 +23,7 @@ public class FileAndroid implements Observable {
     private String extension;
     private boolean isBackDirectory;        // Peut-être à modifier ... sert à identifier le dossier nommé de retour
     private static HashMap<String, Integer> extensions;    // static pour ne garder qu'une seule instance
-    private ArrayList<Observer> observers;
+    private ArrayList<IObserver> observers;
     private static Context context;
     private static List<String> typesPicture;
 
@@ -30,7 +31,7 @@ public class FileAndroid implements Observable {
         this.file = file;
         this.size = file.length();
         this.date = new Date(file.lastModified());
-        this.observers = new ArrayList<Observer>();
+        this.observers = new ArrayList<IObserver>();
         this.context = context;
 
         if (file.isDirectory()) {
@@ -137,23 +138,23 @@ public class FileAndroid implements Observable {
         this.extension = extension;
     }
 
-    public ArrayList<Observer> getObservers() {
+    public ArrayList<IObserver> getObservers() {
         return observers;
     }
 
     @Override
-    public void addObserver(Observer observer) {
+    public void addObserver(IObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
+    public void removeObserver(IObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers) {
+        for (IObserver observer : observers) {
             observer.refresh();
         }
     }

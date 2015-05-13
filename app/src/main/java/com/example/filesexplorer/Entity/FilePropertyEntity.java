@@ -1,6 +1,6 @@
 package com.example.filesexplorer.Entity;
 
-import com.example.filesexplorer.FileAndroid;
+import com.example.filesexplorer.Model.FileAndroid;
 
 /**
  * Created by Dylan on 06/03/2015.

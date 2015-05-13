@@ -1,18 +1,19 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Activity;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.filesexplorer.Model.FileAndroid;
+import com.example.filesexplorer.R;
 
 import java.io.File;
 

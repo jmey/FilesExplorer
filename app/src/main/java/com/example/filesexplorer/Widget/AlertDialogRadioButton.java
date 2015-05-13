@@ -1,4 +1,4 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Widget;
 
 import android.app.AlertDialog;
 import android.content.Context;

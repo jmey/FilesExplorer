@@ -1,4 +1,4 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Adapter;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.example.filesexplorer.Enum.DisplayMode;
+import com.example.filesexplorer.Widget.FileEntryRow;
+import com.example.filesexplorer.Model.FileAndroid;
 
 public class AdapterFileEntryRow extends BaseAdapter {
 

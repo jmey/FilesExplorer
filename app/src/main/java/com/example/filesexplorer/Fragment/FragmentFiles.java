@@ -1,4 +1,4 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Fragment;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
+
+import com.example.filesexplorer.Adapter.AdapterFileEntryRow;
+import com.example.filesexplorer.Enum.DisplayMode;
+import com.example.filesexplorer.R;
 
 public class FragmentFiles extends Fragment {
 //	final private static String TAG =  FragmentFiles.class.getSimpleName();
@@ -73,8 +77,4 @@ public class FragmentFiles extends Fragment {
             this.mode = mode;
         }
     }
-}
-
-enum DisplayMode {
-    GRID, LIST
 }

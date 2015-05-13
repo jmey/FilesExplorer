@@ -1,4 +1,4 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Widget;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -10,11 +10,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.filesexplorer.IObservation.Observer;
+import com.example.filesexplorer.Activity.MainActivity;
+import com.example.filesexplorer.Enum.DisplayMode;
+import com.example.filesexplorer.Fragment.DialogFragmentLongClick;
+import com.example.filesexplorer.Interface.IObserver;
+import com.example.filesexplorer.Model.FileAndroid;
+import com.example.filesexplorer.Utils.ProxyPicture;
+import com.example.filesexplorer.R;
+import com.example.filesexplorer.Utils.FileSizeFormater;
 
-public class FileEntryRow extends RelativeLayout implements Observer {
+public class FileEntryRow extends RelativeLayout implements IObserver {
 //	final private static String TAG =  FileEntryRow.class.getSimpleName();
 	
 	private RelativeLayout layoutItem;

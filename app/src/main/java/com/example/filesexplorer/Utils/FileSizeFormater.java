@@ -1,4 +1,4 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Utils;
 
 import java.text.DecimalFormat;
 

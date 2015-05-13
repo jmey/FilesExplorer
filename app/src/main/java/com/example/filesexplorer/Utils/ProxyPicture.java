@@ -1,9 +1,10 @@
-package com.example.filesexplorer;
+package com.example.filesexplorer.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.AsyncTask;
+
+import com.example.filesexplorer.Model.FileAndroid;
 
 public class ProxyPicture {
 	

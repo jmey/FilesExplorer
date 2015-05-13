@@ -1,24 +1,24 @@
-package com.example.filesexplorer.IObservation;
+package com.example.filesexplorer.Interface;
 
 /**
  * 
  * <h1>Interface Observable</h1>
  * <br>
- * @see Observer
+ * @see IObserver
  *
  */
-public interface Observable {
+public interface IObservable {
 	/**
 	 * Adds an observer
 	 * @param observer An observer
 	 */
-	public void addObserver(Observer observer);
+	public void addObserver(IObserver observer);
 	
 	/**
 	 * Removes an observer
 	 * @param observer An observer
 	 */
-	public void removeObserver(Observer observer);
+	public void removeObserver(IObserver observer);
 	
 	/**
 	 * Notifies all observers

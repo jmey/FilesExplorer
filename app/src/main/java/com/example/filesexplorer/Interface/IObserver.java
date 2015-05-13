@@ -1,14 +1,14 @@
-package com.example.filesexplorer.IObservation;
+package com.example.filesexplorer.Interface;
 
 /**
  * 
  * <h1>Interface Observer</h1>
  * <br>
- * @see Observable
+ * @see IObservable
  *
  */
 
-public interface Observer {
+public interface IObserver {
 	/**
 	 * Refreshes the observer
 	 */
