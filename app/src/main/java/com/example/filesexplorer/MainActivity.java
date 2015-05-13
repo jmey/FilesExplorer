@@ -159,10 +159,17 @@ public class MainActivity extends Activity {
             fragmentFiles.setDisplayMode(DisplayMode.LIST);
         } else if (id == R.id.action_display_grid) {
             fragmentFiles.setDisplayMode(DisplayMode.GRID);
+        } else if (id == R.id.action_search) {
+            openSearch();
+
         } else {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void openSearch() {
+
     }
 
     @Override

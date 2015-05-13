@@ -37,4 +37,9 @@
         android:icon="@drawable/icon_grid"
         android:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/Search"
+        android:icon="@drawable/ic_action_name"
+        android:showAsAction="ifRoom"/>
 </menu>

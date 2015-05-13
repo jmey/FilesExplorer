@@ -52,4 +52,5 @@
     </string-array>
 
     <string name="title_activity_main_application">MainApplicationActivity</string>
+    <string name="Search">Search</string>
 </resources>
