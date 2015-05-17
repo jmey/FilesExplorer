@@ -175,6 +175,36 @@ public class MainActivity extends Activity {
 
     }
 
+    private static ArrayList<File> searchFileInDirectory(File _directory, String _toSearch)
+    {
+        if(!_directory.isDirectory()) { return null; }
+
+        ArrayList<File> resultat = new ArrayList<File>();
+        ArrayList<File> nextDirectoryToSearch = new ArrayList<File>();
+        nextDirectoryToSearch.add(_directory);
+        while(!nextDirectoryToSearch.isEmpty())
+        {
+
+            File directory = nextDirectoryToSearch.get(0);
+            if(directory.listFiles() != null)
+            {
+                for(File f : directory.listFiles())
+                {
+                    if(f.isDirectory())
+                    {
+                        nextDirectoryToSearch.add(f);
+                    }
+                    else if(f.isFile() && f.getName().contains(_toSearch))
+                    {
+                        resultat.add(f);
+                    }
+                }
+            }
+            nextDirectoryToSearch.remove(0);
+        }
+        return resultat;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
