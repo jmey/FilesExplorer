@@ -90,7 +90,7 @@ public class MainApplicationActivity extends Activity {
                     // Instruct the user to install a PDF reader here, or something
                 }
             } else {
-                Toast.makeText(this, "Ce fichier n'est pas géré", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.not_handle, Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, "Veuillez sélectionner un fichier", Toast.LENGTH_SHORT).show();

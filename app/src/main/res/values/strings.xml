@@ -30,6 +30,7 @@
     <string name="button_explorer">Browse..</string>
     <string name="button_go">Open the file</string>
     <string name="open_appli">Opening explorer</string>
+    <string name="not_handle">This file is not managed</string>
     <!-- préferences -->
     <string name="displayingpreferencetitle">Displaying</string>
     <string name="download_directory">/storage/sdcard0</string>
