@@ -15,6 +15,7 @@
     <string name="action_displaying">Displaying</string>
     <string name="action_display_list">Liste</string>
     <string name="action_display_grid">Grille</string>
+    <string name="action_properties">Propriétés</string>
 
     <string name="pref_main_directory">Dossier de démarrage</string>
     <string name="pref_displaying">Affichage</string>
@@ -26,6 +27,13 @@
     <string name="quit_confirmation">Voulez-vous vraiment quitter l\'application ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+
+    <string name="type">Type:</string>
+    <string name="directory">Répertoire:</string>
+    <string name="size">Taille:</string>
+    <string name="duration">Durée:</string>
+    <string name="nb_file">Nombre de fichiers:</string>
+    <string name="resolution">Résolution:</string>
 
     <string name="button_explorer">Parcourir..</string>
     <string name="button_go">Ouvrir le fichier</string>

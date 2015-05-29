@@ -32,7 +32,7 @@
             android:textSize="15sp" />
         
         <TextView
-            android:id="@+id/file_size"
+            android:id="@+id/file_size_label"
             android:text="@string/file_size"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

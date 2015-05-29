@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:paddingLeft="50px"
+    android:paddingRight="50px"
+    android:paddingBottom="50px"
+    android:paddingTop="0px">
+
+    <TextView
+        android:id="@+id/file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="titre"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="50px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Type:"
+        android:id="@+id/file_type_label"
+        android:layout_below="@+id/file_name"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="50px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="type_txt"
+        android:id="@+id/file_type_text"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_alignTop="@+id/file_type_label"
+        android:layout_toRightOf="@+id/file_type_label"
+        android:layout_alignLeft="@+id/file_folder_text"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Répertoire:"
+        android:id="@+id/file_folder_label"
+        android:layout_below="@+id/file_type_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="50px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="folder_txt"
+        android:id="@+id/file_folder_text"
+        android:layout_alignTop="@+id/file_folder_label"
+        android:layout_toRightOf="@+id/file_folder_label"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Taille:"
+        android:id="@+id/file_size_label"
+        android:layout_below="@+id/file_folder_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="50px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="size_txt"
+        android:id="@+id/file_size_text"
+        android:layout_alignRight="@+id/file_type_text"
+        android:layout_alignTop="@+id/file_size_label"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="special:"
+        android:id="@+id/file_special_label"
+        android:layout_below="@+id/file_size_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="special_txt"
+        android:id="@+id/file_special_text"
+        android:layout_alignTop="@+id/file_special_label"
+        android:layout_alignLeft="@+id/file_size_text" />
+</RelativeLayout>
