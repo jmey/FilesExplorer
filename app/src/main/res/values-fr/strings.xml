@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FileExplorer</string>
     <string name="hello_world">Hello world!</string>
@@ -11,8 +11,8 @@
     <string name="app_version">v.0.001</string>
     <string name="app_description">Un explorateur de fichier conçu pour offrir simplicité et rapidité.</string>
     <string name="action_about">A propos</string>
-    <string name="action_sorting">Sorting</string>
-    <string name="action_displaying">Displaying</string>
+    <string name="action_sorting">Tri</string>
+    <string name="action_displaying">Affichage</string>
     <string name="action_display_list">Liste</string>
     <string name="action_display_grid">Grille</string>
 
@@ -36,12 +36,10 @@
     <string-array name="list_displaying_titles">
         <item>Vue liste</item>
         <item>Vue grille</item>
-        <item>Vue arbre</item>
     </string-array>
     <string-array name="list_displaying_values">
         <item>Liste</item>
         <item>Grille</item>
-        <item>Arbre</item>
     </string-array>
 
     <string-array name="list_sorting_values">

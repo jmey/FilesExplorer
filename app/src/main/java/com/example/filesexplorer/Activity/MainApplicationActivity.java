@@ -55,6 +55,7 @@ public class MainApplicationActivity extends Activity {
     public void button_explorer(View view) {
         Toast.makeText(this, R.string.open_appli, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("mode", true);
         startActivityForResult(intent, FILE_CHOOSER_REQUEST);
     }
 
