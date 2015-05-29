@@ -53,7 +53,7 @@ public class MainApplicationActivity extends Activity {
     static final int FILE_CHOOSER_REQUEST = 1;
 
     public void button_explorer(View view) {
-        Toast.makeText(this, "Ouverture de l'explorateur", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.open_appli, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivityForResult(intent, FILE_CHOOSER_REQUEST);
     }

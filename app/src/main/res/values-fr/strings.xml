@@ -9,8 +9,8 @@
     <string name="file_date">Date</string>
 
     <string name="app_version">v.0.001</string>
-    <string name="app_description">fichier ?</string>
-    <string name="action_about">About</string>
+    <string name="app_description">Un explorateur de fichier conçu pour offrir simplicité et rapidité.</string>
+    <string name="action_about">A propos</string>
     <string name="action_sorting">Sorting</string>
     <string name="action_displaying">Displaying</string>
     <string name="action_display_list">Liste</string>
@@ -29,7 +29,7 @@
 
     <string name="button_explorer">Parcourir..</string>
     <string name="button_go">Ouvrir le fichier</string>
-
+    <string name="open_appli">Ouverture de l\'explorateur</string>
     <!-- préferences -->
     <string name="displayingpreferencetitle">Affichage</string>
     <string name="download_directory">/storage/sdcard0</string>
@@ -51,5 +51,5 @@
         <item>Date</item>
     </string-array>
 
-    <string name="title_activity_main_application">MainApplicationActivity</string>
+    <string name="title_activity_main_application">Explorateur de fichier</string>
 </resources>

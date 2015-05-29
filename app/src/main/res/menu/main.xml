@@ -7,7 +7,8 @@
         android:id="@+id/action_displaying"
         android:showAsAction="never"
         android:title="@string/action_displaying"
-        android:enabled="true"/>
+        android:enabled="true"
+        android:visible="false"/>
 
     <item
         android:id="@+id/action_sorting"

@@ -37,7 +37,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="@string/app_version"/>
+                android:text="@string/app_version"
+                android:textStyle="bold"
+                android:textSize="10sp"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -49,7 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linearlayout_icon_name"
         android:padding="4dp"
-        android:text="@string/app_description"/>
+        android:text="@string/app_description"
+        android:textStyle="bold"
+        android:textSize="15sp"/>
     
 
 

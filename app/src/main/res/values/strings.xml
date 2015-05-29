@@ -9,7 +9,7 @@
     <string name="file_date">Date</string>
 
     <string name="app_version">v.0.001</string>
-    <string name="app_description">A simple file explorer</string>
+    <string name="app_description">A file explorer designed to offer simplicity and speed</string>
     <string name="action_about">About</string>
     <string name="action_sorting">Sorting</string>
     <string name="action_displaying">Displaying</string>
@@ -29,7 +29,7 @@
 
     <string name="button_explorer">Browse..</string>
     <string name="button_go">Open the file</string>
-
+    <string name="open_appli">Opening explorer</string>
     <!-- préferences -->
     <string name="displayingpreferencetitle">Displaying</string>
     <string name="download_directory">/storage/sdcard0</string>
@@ -51,6 +51,6 @@
         <item>Date</item>
     </string-array>
 
-    <string name="title_activity_main_application">MainApplicationActivity</string>
+    <string name="title_activity_main_application">File explorer</string>
     <string name="Search">Search</string>
 </resources>
