@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 
+import com.example.filesexplorer.R;
+
 public class AlertDialogRadioButton extends AlertDialog.Builder {
 
     private String[] criterias;
@@ -14,7 +16,7 @@ public class AlertDialogRadioButton extends AlertDialog.Builder {
         super(context);
         this.criterias = criterias;
         this.criteriaPosition = position;
-        this.setTitle("Select the criteria");
+        this.setTitle(R.string.action_displaying);
     }
 
     // TODO : sortir et mettre le listener en paramètre
@@ -23,18 +25,17 @@ public class AlertDialogRadioButton extends AlertDialog.Builder {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 criteriaPosition = item;
+
                 switch (item) {
                     case 0:
                         break;
                     case 1:
                         break;
-                    case 2:
-                        break;
-                    case 3:
+                    default:
                         break;
                 }
-                dialog.dismiss();
 
+                dialog.dismiss();
             }
         });
         this.create();

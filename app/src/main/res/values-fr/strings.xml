@@ -10,9 +10,9 @@
 
     <string name="app_version">v.0.001</string>
     <string name="app_description">fichier ?</string>
-    <string name="action_about">About</string>
-    <string name="action_sorting">Sorting</string>
-    <string name="action_displaying">Displaying</string>
+    <string name="action_about">A propos</string>
+    <string name="action_sorting">Tri</string>
+    <string name="action_displaying">Affichage</string>
     <string name="action_display_list">Liste</string>
     <string name="action_display_grid">Grille</string>
 
@@ -36,12 +36,10 @@
     <string-array name="list_displaying_titles">
         <item>Vue liste</item>
         <item>Vue grille</item>
-        <item>Vue arbre</item>
     </string-array>
     <string-array name="list_displaying_values">
         <item>Liste</item>
         <item>Grille</item>
-        <item>Arbre</item>
     </string-array>
 
     <string-array name="list_sorting_values">
