@@ -26,6 +26,12 @@ public class FileAndroid implements IObservable {
     private ArrayList<IObserver> observers;
     private static Context context;
     private static List<String> typesPicture;
+    private static List<String> typesMusic;
+    private static List<String> typesVideo;
+    private static List<String> typesArchive;
+    private static List<String> typesDocument;
+    private static List<String> typesSpreadsheet;
+    private static List<String> typesPresentation;
 
     public FileAndroid(Context context, File file) {
         this.file = file;
@@ -75,6 +81,48 @@ public class FileAndroid implements IObservable {
             typesPicture = Arrays.asList(context.getResources().getStringArray(R.array.list_types_picture));
         }
         return typesPicture.contains(extension);
+    }
+
+    public boolean isMusic() {
+        if (typesMusic == null) {
+            typesMusic = Arrays.asList(context.getResources().getStringArray(R.array.list_types_music));
+        }
+        return typesMusic.contains(extension);
+    }
+
+    public boolean isVideo() {
+        if (typesVideo == null) {
+            typesVideo = Arrays.asList(context.getResources().getStringArray(R.array.list_types_video));
+        }
+        return typesVideo.contains(extension);
+    }
+
+    public boolean isDocument() {
+        if (typesDocument == null) {
+            typesDocument = Arrays.asList(context.getResources().getStringArray(R.array.list_types_document));
+        }
+        return typesDocument.contains(extension);
+    }
+
+    public boolean isPresentation() {
+        if (typesPresentation == null) {
+            typesPresentation = Arrays.asList(context.getResources().getStringArray(R.array.list_types_presentation));
+        }
+        return typesPresentation.contains(extension);
+    }
+
+    public boolean isArchive() {
+        if (typesArchive == null) {
+            typesArchive = Arrays.asList(context.getResources().getStringArray(R.array.list_types_archive));
+        }
+        return typesArchive.contains(extension);
+    }
+
+    public boolean isSpreadsheet() {
+        if (typesSpreadsheet == null) {
+            typesSpreadsheet = Arrays.asList(context.getResources().getStringArray(R.array.list_types_spreadsheet));
+        }
+        return typesSpreadsheet.contains(extension);
     }
 
     public File getFile() {

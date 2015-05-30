@@ -25,10 +25,10 @@
 
         <TextView
             android:id="@+id/file_type_label"
-            android:layout_width="200px"
+            android:layout_width="300px"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Type :"/>
+            android:text="@string/type"/>
 
         <TextView
             android:id="@+id/file_type_text"
@@ -49,10 +49,10 @@
 
         <TextView
             android:id="@+id/file_folder_label"
-            android:layout_width="200px"
+            android:layout_width="300px"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Répertoire :"/>
+            android:text="@string/path"/>
 
         <TextView
             android:id="@+id/file_folder_text"
@@ -71,10 +71,10 @@
 
         <TextView
             android:id="@+id/file_size_label"
-            android:layout_width="200px"
+            android:layout_width="300px"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Taille :"/>
+            android:text="@string/size"/>
 
         <TextView
             android:id="@+id/file_size_text"
@@ -85,15 +85,37 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/LL_special"
+        android:id="@+id/LL_modified"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/LL_size"
         android:paddingBottom="10px">
 
         <TextView
+            android:id="@+id/file_modified_label"
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/modified"/>
+
+        <TextView
+            android:id="@+id/file_modified_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="size_txt"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LL_special"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LL_modified"
+        android:paddingBottom="10px">
+
+        <TextView
             android:id="@+id/file_special_label"
-            android:layout_width="200px"
+            android:layout_width="300px"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="special :"/>
@@ -103,6 +125,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="special_txt"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LL_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LL_special"
+        android:paddingBottom="10px">
+
+        <TextView
+            android:id="@+id/file_hidden_label"
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/hidden"/>
+
+        <TextView
+            android:id="@+id/file_hidden_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hidden_txt"/>
 
     </LinearLayout>
 

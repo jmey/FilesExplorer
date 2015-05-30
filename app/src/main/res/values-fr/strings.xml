@@ -28,12 +28,26 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 
-    <string name="type">Type:</string>
-    <string name="directory">Répertoire:</string>
-    <string name="size">Taille:</string>
-    <string name="duration">Durée:</string>
-    <string name="nb_file">Nombre de fichiers:</string>
-    <string name="resolution">Résolution:</string>
+    <string name="type">Type :</string>
+    <string name="path">Répertoire :</string>
+    <string name="size">Taille :</string>
+    <string name="duration">Durée :</string>
+    <string name="content">Contenu :</string>
+    <string name="resolution">Résolution :</string>
+    <string name="modified">Modifié :</string>
+    <string name="hidden">Caché :</string>
+    <string name="elements">éléments</string>
+    <string name="unknown">Inconnu</string>
+
+    <string name="type_directory">Dossier</string>
+    <string name="type_picture">Image</string>
+    <string name="type_music">Audio</string>
+    <string name="type_video">Vidéo</string>
+    <string name="type_archive">Archive</string>
+    <string name="type_document">Document</string>
+    <string name="type_spreadsheet">Tableur</string>
+    <string name="type_presentation">Présentation</string>
+    <string name="type_unknown">Fichier %1$s</string>
 
     <string name="button_explorer">Parcourir..</string>
     <string name="button_go">Ouvrir le fichier</string>

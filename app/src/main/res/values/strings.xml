@@ -28,12 +28,26 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <string name="type">Type:</string>
-    <string name="directory">Directory:</string>
-    <string name="size">Size:</string>
-    <string name="duration">Duration:</string>
-    <string name="nb_file"></string>
-    <string name="resolution">Resolution:</string>
+    <string name="type">Type :</string>
+    <string name="path">Path :</string>
+    <string name="size">Size :</string>
+    <string name="duration">Duration :</string>
+    <string name="content">Content :</string>
+    <string name="resolution">Resolution :</string>
+    <string name="modified">Modified :</string>
+    <string name="hidden">Hidden :</string>
+    <string name="elements">elements</string>
+    <string name="unknown">Unknown</string>
+
+    <string name="type_directory">Directory</string>
+    <string name="type_picture">Picture</string>
+    <string name="type_music">Audio</string>
+    <string name="type_video">Video</string>
+    <string name="type_archive">Archive</string>
+    <string name="type_document">Document</string>
+    <string name="type_spreadsheet">Spreadsheet</string>
+    <string name="type_presentation">Presentation</string>
+    <string name="type_unknown">%1$s file</string>
 
     <string name="button_explorer">Browse..</string>
     <string name="button_go">Open the file</string>

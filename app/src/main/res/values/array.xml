@@ -38,4 +38,56 @@
         <item>jpeg</item>
         <item>bmp</item>
     </string-array>
+
+    <string-array name="list_types_music">
+        <item>mp3</item>
+        <item>flac</item>
+        <item>ogg</item>
+        <item>wav</item>
+        <item>wma</item>
+    </string-array>
+
+    <string-array name="list_types_video">
+        <item>avi</item>
+        <item>m4a</item>
+        <item>mp4</item>
+        <item>flv</item>
+        <item>wmv</item>
+    </string-array>
+
+    <string-array name="list_types_archive">
+        <item>rar</item>
+        <item>zip</item>
+        <item>tar</item>
+        <item>gz</item>
+        <item>7z</item>
+    </string-array>
+
+    <string-array name="list_types_document">
+        <item>doc</item>
+        <item>docx</item>
+        <item>odt</item>
+        <item>pdf</item>
+        <item>txt</item>
+        <item>xml</item>
+        <item>htm</item>
+        <item>html</item>
+        <item>xhtml</item>
+    </string-array>
+
+    <string-array name="list_types_spreadsheet">
+        <item>xls</item>
+        <item>xlsx</item>
+        <item>ods</item>
+        <item>csv</item>
+    </string-array>
+
+    <string-array name="list_types_presentation">
+        <item>ppt</item>
+        <item>pptx</item>
+        <item>opd</item>
+        <item>key</item>
+        <item>keynote</item>
+    </string-array>
+
 </resources>
