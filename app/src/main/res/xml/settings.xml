@@ -20,7 +20,8 @@
 
         <CheckBoxPreference
             android:key="pref_hidden_file"
-            android:title="@string/pref_hidden_file">
+            android:title="@string/pref_hidden_file"
+            android:defaultValue="true">
         </CheckBoxPreference>
 
         <Preference

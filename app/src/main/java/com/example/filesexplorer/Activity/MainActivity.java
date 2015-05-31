@@ -9,10 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.filesexplorer.Widget.AlertDialogRadioButton;
@@ -26,6 +26,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
+
+    public static MainActivity instance;
 
     public static final String PREFS_NAME = "MyPrefsFile";
 	
@@ -65,6 +67,8 @@ public class MainActivity extends Activity {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_files, fragmentFiles);
         transaction.commit();
+
+        instance = this;
     }
 
     @Override
@@ -209,7 +213,12 @@ public class MainActivity extends Activity {
             }
             File[] files = directory.listFiles();
             for (File file : files) {
-                res.add(new FileAndroid(this, file));
+                SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                boolean display_hidden_file = p.getBoolean("pref_hidden_file",true);
+
+                if(display_hidden_file || !file.isHidden()) {
+                    res.add(new FileAndroid(this, file));
+                }
             }
         }
 
@@ -292,5 +301,7 @@ public class MainActivity extends Activity {
 
     private static final int RESULT_SETTINGS = 1;
 
-
+    public void reloadDirectory() {
+        openDirectory(new FileAndroid(this, currentDirectory));
+    }
 }
