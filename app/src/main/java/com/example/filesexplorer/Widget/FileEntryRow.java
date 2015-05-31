@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.filesexplorer.Activity.MainActivity;
 import com.example.filesexplorer.Enum.DisplayMode;
-import com.example.filesexplorer.Fragment.DialogFragmentLongClick;
+import com.example.filesexplorer.Fragment.DialogFragmentProperties;
 import com.example.filesexplorer.Interface.IObserver;
 import com.example.filesexplorer.Model.FileAndroid;
 import com.example.filesexplorer.Utils.ProxyPicture;
@@ -50,7 +50,7 @@ public class FileEntryRow extends RelativeLayout implements IObserver {
 	 */
 	private void initializeViews() {
 		fileNameTextView = (TextView) layoutItem.findViewById(R.id.file_name);
-		fileSizeTextView = (TextView) layoutItem.findViewById(R.id.file_size);
+		fileSizeTextView = (TextView) layoutItem.findViewById(R.id.file_size_label);
 		fileIconView = (ImageView) layoutItem.findViewById(R.id.file_icon);
 		dateTextView = (TextView) layoutItem.findViewById(R.id.file_date);
 	}
@@ -138,7 +138,7 @@ public class FileEntryRow extends RelativeLayout implements IObserver {
             @Override
             public boolean onLongClick(View v) {
                 Activity activity = (Activity)context;
-                DialogFragmentLongClick dialog = DialogFragmentLongClick.newInstance(R.string.action_about);
+                DialogFragmentProperties dialog = DialogFragmentProperties.newInstance(R.string.action_properties, file);
                 dialog.show(activity.getFragmentManager(), "FragmentTransaction.add");
                 return true;
             }
