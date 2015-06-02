@@ -28,23 +28,5 @@ public class UserSettingsActivity extends PreferenceActivity {
                 return true;
             }
         });
-
-        final Preference hidden = (Preference) findPreference("pref_hidden_file");
-        hidden.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-
-                if(prefs.getBoolean("pref_hidden_file",true)) {
-                    hidden.setDefaultValue("false");
-                }
-                else {
-                    hidden.setDefaultValue("true");
-                }
-
-                MainActivity.instance.reloadDirectory();
-                return true;
-            }
-        });
     }
 }
