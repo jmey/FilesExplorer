@@ -17,6 +17,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.filesexplorer.AsyncTask.FilesSearching;
 import com.example.filesexplorer.Widget.AlertDialogRadioButton;
 import com.example.filesexplorer.Enum.DisplayMode;
 import com.example.filesexplorer.Model.FileAndroid;
@@ -30,9 +31,8 @@ import java.util.Collections;
 
 public class MainActivity extends Activity {
 
-    public static MainActivity instance;
-
     public static final String PREFS_NAME = "MyPrefsFile";
+    private static final int RESULT_SETTINGS = 1;
 	
 //	private final String TAG = getClass().getSimpleName();
     private MainActivity activity;
@@ -41,6 +41,8 @@ public class MainActivity extends Activity {
 
     private AlertDialogRadioButton alertDialogSorting = null;
     private AlertDialogRadioButton alertDialogDisplaying = null;
+
+    private boolean isHiddenFileShowed;
 
     /** If the activity is called by another application to get a string file path result, mode_library = true
      *  If the explorer is called by itself, mode_library is at false. False by default
@@ -51,27 +53,29 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         activity = this;
 
-        // Création du fragment contenant la liste des fichiers si celui-ci ne l'a pas encore été
+        // Get the last directory saved in the preferences file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
 
-        fragmentFiles = new FragmentFiles(DisplayMode.GRID);
+        // Get the property to know if the preference is checked or not
+        isHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
 
+        // Instantiate and add the fragment of files
+        fragmentFiles = new FragmentFiles(DisplayMode.GRID);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_files, fragmentFiles);
         transaction.commit();
 
+        // Fill the fragment with the files of the currentDirectory
         openDirectory(currentDirectory);
 
+        //
         if (getActionBar() != null) {
             getActionBar().setHomeButtonEnabled(true);
             getActionBar().setTitle(currentDirectory.getPath());
         }
-
-        instance = this;
     }
 
     @Override
@@ -82,11 +86,6 @@ public class MainActivity extends Activity {
         if(i!= null) {
             mode_library = i.getBooleanExtra("mode", false);
         }
-    }
-
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        return super.onMenuItemSelected(featureId, item);
     }
 
     @Override
@@ -132,8 +131,6 @@ public class MainActivity extends Activity {
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -145,7 +142,8 @@ public class MainActivity extends Activity {
         } else if (id == R.id.action_about) {
             openAbout();
         } else if (id == R.id.action_settings) {
-            openSettings();
+            Intent i = new Intent(this, UserSettingsActivity.class);
+            startActivityForResult(i, RESULT_SETTINGS);
         } else if (id == R.id.action_sorting) {
             openSorting();
         } else if (id == R.id.action_display_list) {
@@ -163,7 +161,11 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
             case RESULT_SETTINGS:
-                //showUserSettings();
+                boolean prefHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
+                if (prefHiddenFileShowed != isHiddenFileShowed) {
+                    isHiddenFileShowed = prefHiddenFileShowed;
+                    openDirectory(currentDirectory);
+                }
                 break;
         }
     }
@@ -186,11 +188,6 @@ public class MainActivity extends Activity {
                     .setNegativeButton(R.string.no, null)
                     .show();
         }
-    }
-
-    private void openSettings() {
-        Intent i = new Intent(this, UserSettingsActivity.class);
-        startActivityForResult(i, RESULT_SETTINGS);
     }
 
     private void openSorting() {
@@ -223,6 +220,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    // Surcharge
     public void openDirectory(FileAndroid fileAndroid) {
         openDirectory(fileAndroid.getFile());
     }
@@ -239,11 +237,8 @@ public class MainActivity extends Activity {
                 i = 1;
             }
 
-            SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            boolean display_hidden_file = p.getBoolean("pref_hidden_file", true);
-
             while (i < files.size()) {
-                if (display_hidden_file || !files.get(i).isHidden()) {
+                if (isHiddenFileShowed || !files.get(i).isHidden()) {
                     objects.add(new FileAndroid(this, files.get(i)));
                 }
                 i++;
@@ -263,7 +258,7 @@ public class MainActivity extends Activity {
     }
 
     public void openFile(FileAndroid fileAndroid) {
-        // Save the latest directory open
+        // Save the latest directory opened
         String parentDirectory = fileAndroid.getFile().getParentFile().getAbsolutePath();
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -309,7 +304,7 @@ public class MainActivity extends Activity {
                     Toast.makeText(this, R.string.not_handle, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Veuillez sélectionner un fichier", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please select a file", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -321,11 +316,5 @@ public class MainActivity extends Activity {
     private void openAbout() {
         DialogFragmentAbout dialog = DialogFragmentAbout.newInstance(R.string.action_about);
         dialog.show(getFragmentManager(), "FragmentTransaction.add");
-    }
-
-    private static final int RESULT_SETTINGS = 1;
-
-    public void reloadDirectory() {
-        openDirectory(new FileAndroid(this, currentDirectory));
     }
 }
