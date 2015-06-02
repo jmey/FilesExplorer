@@ -16,7 +16,7 @@ import com.example.filesexplorer.Enum.DisplayMode;
 import com.example.filesexplorer.Fragment.DialogFragmentProperties;
 import com.example.filesexplorer.Interface.IObserver;
 import com.example.filesexplorer.Model.FileAndroid;
-import com.example.filesexplorer.Utils.ProxyPicture;
+import com.example.filesexplorer.AsyncTask.ProxyPicture;
 import com.example.filesexplorer.R;
 import com.example.filesexplorer.Utils.FileSizeFormater;
 

@@ -55,7 +55,7 @@
     <string name="not_handle">Ce fichier n\'est pas géré</string>
     <!-- préferences -->
     <string name="displayingpreferencetitle">Affichage</string>
-    <string name="download_directory">/storage/sdcard0</string>
+    <string name="download_directory">/storage/sdcard0/Download</string>
     <string-array name="list_displaying_titles">
         <item>Vue liste</item>
         <item>Vue grille</item>

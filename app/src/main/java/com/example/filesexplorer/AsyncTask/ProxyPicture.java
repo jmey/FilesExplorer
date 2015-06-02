@@ -1,4 +1,4 @@
-package com.example.filesexplorer.Utils;
+package com.example.filesexplorer.AsyncTask;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

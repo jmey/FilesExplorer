@@ -10,9 +10,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.filesexplorer.Widget.AlertDialogRadioButton;
@@ -24,6 +26,7 @@ import com.example.filesexplorer.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends Activity {
 
@@ -34,13 +37,13 @@ public class MainActivity extends Activity {
 //	private final String TAG = getClass().getSimpleName();
     private MainActivity activity;
 	private static FragmentFiles fragmentFiles;
-    File currentDirectory;
+    private File currentDirectory;
 
     private AlertDialogRadioButton alertDialogSorting = null;
     private AlertDialogRadioButton alertDialogDisplaying = null;
 
-    /** If the activity is called by another application for get a string file path result, mode_library = true
-     *  If the explorer is called by it launcher, mode_library is at false. False by default
+    /** If the activity is called by another application to get a string file path result, mode_library = true
+     *  If the explorer is called by itself, mode_library is at false. False by default
      **/
     private boolean mode_library = false;
 
@@ -55,18 +58,18 @@ public class MainActivity extends Activity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
 
-        ArrayList<Object> objectEntries = getListObjects(currentDirectory);
         fragmentFiles = new FragmentFiles(DisplayMode.GRID);
-        fragmentFiles.setEntriesList(objectEntries);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container_files, fragmentFiles);
+        transaction.commit();
+
+        openDirectory(currentDirectory);
 
         if (getActionBar() != null) {
             getActionBar().setHomeButtonEnabled(true);
             getActionBar().setTitle(currentDirectory.getPath());
         }
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container_files, fragmentFiles);
-        transaction.commit();
 
         instance = this;
     }
@@ -82,11 +85,54 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        return super.onMenuItemSelected(featureId, item);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem itemSearch = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView)itemSearch.getActionView();
+
+        // Listener to search files at each character entered
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!newText.equals("")) {
+                    FilesSearching.getInstance().searchFilesByAsyncTask(activity, newText);
+                } else {
+                    updateFragmentFiles(new ArrayList<File>(), false);
+                }
+                return true;
+            }
+        });
+
+        // Listener to load back the currentDirectory when out of the search mode
+        MenuItemCompat.setOnActionExpandListener(itemSearch, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                openDirectory(new FileAndroid(activity, currentDirectory));
+                return true;
+            }
+        });
+
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -95,7 +141,7 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            openDirectory(new FileAndroid(this, new File(getString(R.string.download_directory))));
+            openDirectory(new File(getString(R.string.download_directory)));
         } else if (id == R.id.action_about) {
             openAbout();
         } else if (id == R.id.action_settings) {
@@ -106,9 +152,6 @@ public class MainActivity extends Activity {
             fragmentFiles.setDisplayMode(DisplayMode.LIST);
         } else if (id == R.id.action_display_grid) {
             fragmentFiles.setDisplayMode(DisplayMode.GRID);
-        } else if (id == R.id.action_search) {
-            openSearch();
-
         } else {
                 return super.onOptionsItemSelected(item);
         }
@@ -145,40 +188,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void openSearch() {
-
-    }
-
-    private static ArrayList<File> searchFileInDirectory(File _directory, String _toSearch)
-    {
-        if(!_directory.isDirectory()) { return null; }
-
-        ArrayList<File> resultat = new ArrayList<File>();
-        ArrayList<File> nextDirectoryToSearch = new ArrayList<File>();
-        nextDirectoryToSearch.add(_directory);
-        while(!nextDirectoryToSearch.isEmpty())
-        {
-
-            File directory = nextDirectoryToSearch.get(0);
-            if(directory.listFiles() != null)
-            {
-                for(File f : directory.listFiles())
-                {
-                    if(f.isDirectory())
-                    {
-                        nextDirectoryToSearch.add(f);
-                    }
-                    else if(f.isFile() && f.getName().contains(_toSearch))
-                    {
-                        resultat.add(f);
-                    }
-                }
-            }
-            nextDirectoryToSearch.remove(0);
-        }
-        return resultat;
-    }
-
     private void openSettings() {
         Intent i = new Intent(this, UserSettingsActivity.class);
         startActivityForResult(i, RESULT_SETTINGS);
@@ -191,53 +200,65 @@ public class MainActivity extends Activity {
         alertDialogSorting.show();
     }
 
-    private void openDisplaying() {
-        if (alertDialogDisplaying == null) {
-            alertDialogDisplaying = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_displaying_values), 0);
-        }
-        alertDialogDisplaying.show();
-    }
+    public void openDirectory(File file) {
+        File[] arrayFiles = file.listFiles();
 
-    /**
-     * Renvoie la liste des fichiers et dossiers contenus dans le dossier en paramètre
-     * @param directory
-     * @return une liste de File
-     */
-    public ArrayList<Object> getListObjects(File directory) {
-        ArrayList<Object> res = new ArrayList<Object>();
+        if (arrayFiles != null) {
+            ArrayList<File> files = new ArrayList<File>();
 
-        if (directory.exists()) {
-            if (!directory.getPath().equals("/")) {	// Bah oui, la racine n'a pas de parent la pauvre :|
-                FileAndroid backDirectory = new FileAndroid(this, directory.getParentFile(), true);
-                res.add(backDirectory);
+            // From File[] to ArrayList<File> with adding the parent if it's not the root directory
+            if (!file.getPath().equals("/")) {
+                files.add(file.getParentFile());
             }
-            File[] files = directory.listFiles();
-            for (File file : files) {
-                SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                boolean display_hidden_file = p.getBoolean("pref_hidden_file",true);
+            Collections.addAll(files, arrayFiles);
 
-                if(display_hidden_file || !file.isHidden()) {
-                    res.add(new FileAndroid(this, file));
-                }
+            boolean hasParent = false;
+            if (files.size() > arrayFiles.length) { // We have had an element, which is the parent
+                hasParent = true;
             }
+            currentDirectory = file;
+            updateFragmentFiles(files, hasParent);
+        } else {
+            Toast.makeText(this, "Cannot open this directory for some reason", Toast.LENGTH_SHORT).show();
         }
-
-        return res;
     }
-
 
     public void openDirectory(FileAndroid fileAndroid) {
+        openDirectory(fileAndroid.getFile());
+    }
+
+    // Update the FragmentFiles with the ArrayList of File in parameter
+    // If hasParent is at true, the first element of the ArrayList is this parent
+    public void updateFragmentFiles(ArrayList<File> files, boolean hasParent) {
         try {
-            ArrayList<Object> objects = getListObjects(fileAndroid.getFile());
+            ArrayList<Object> objects = new ArrayList<Object>();
+
+            int i = 0;
+            if (hasParent) {
+                objects.add(new FileAndroid(this, files.get(0), true));
+                i = 1;
+            }
+
+            SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            boolean display_hidden_file = p.getBoolean("pref_hidden_file", true);
+
+            while (i < files.size()) {
+                if (display_hidden_file || !files.get(i).isHidden()) {
+                    objects.add(new FileAndroid(this, files.get(i)));
+                }
+                i++;
+            }
+
             fragmentFiles.setEntriesList(objects);
-            fragmentFiles.getAdapter().notifyDataSetChanged();
-            currentDirectory = fileAndroid.getFile();
+            if (fragmentFiles.getAdapter() != null) {
+                fragmentFiles.getAdapter().notifyDataSetChanged();
+            }
             if (getActionBar() != null) {
-                getActionBar().setTitle(fileAndroid.getFile().getPath());
+                getActionBar().setTitle(currentDirectory.getPath());
             }
         } catch (Exception e) {
-            // Trouver pourquoi certains dossiers soulèvent une exception ... problème d'autorisation ?
-            Toast.makeText(this, "Ca marche pas...", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            Toast.makeText(this, "Exception...", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -293,6 +314,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    public File getCurrentDirectory() {
+        return currentDirectory;
+    }
 
     private void openAbout() {
         DialogFragmentAbout dialog = DialogFragmentAbout.newInstance(R.string.action_about);

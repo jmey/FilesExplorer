@@ -4,7 +4,13 @@
     tools:context="com.example.filesexplorer.Activity.MainActivity" >
 
     <item
+        android:id="@+id/action_search"
+        android:title="@string/Search"
+        android:icon="@drawable/ic_action_name"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:actionViewClass="android.widget.SearchView"/>
 
+    <item
         android:id="@+id/action_sorting"
         android:showAsAction="never"
         android:title="@string/action_sorting"
@@ -30,11 +36,5 @@
         android:id="@+id/action_display_grid"
         android:title="@string/action_display_grid"
         android:icon="@drawable/icon_grid"
-        android:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/action_search"
-        android:title="@string/Search"
-        android:icon="@drawable/ic_action_name"
         android:showAsAction="ifRoom"/>
 </menu>
