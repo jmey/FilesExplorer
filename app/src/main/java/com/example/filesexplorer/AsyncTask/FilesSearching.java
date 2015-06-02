@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class FilesSearching {
 
-    private MainActivity activity;
+    private FilesSearchingAsyncTask filesSearchingAsyncTask;
 
     private static class FileSearchingHolder {
         private static FilesSearching fileSearchingInstance;
@@ -25,7 +25,12 @@ public class FilesSearching {
     }
 
     public void searchFilesByAsyncTask(MainActivity activity, String pattern) {
-        FilesSearchingAsyncTask filesSearchingAsyncTask = new FilesSearchingAsyncTask(activity, pattern);
+        if (filesSearchingAsyncTask != null) {
+            filesSearchingAsyncTask.cancel(true);
+            filesSearchingAsyncTask = null;
+        }
+
+        filesSearchingAsyncTask = new FilesSearchingAsyncTask(activity, pattern);
         filesSearchingAsyncTask.execute();
     }
 
@@ -51,6 +56,7 @@ public class FilesSearching {
 
             while(!nextDirectoryToSearch.isEmpty())
             {
+                if (isCancelled()) { break; }
                 File directory = nextDirectoryToSearch.get(0);
                 if(directory.listFiles() != null)
                 {
