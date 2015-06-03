@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
         transaction.commit();
 
         // Fill the fragment with the files of the currentDirectory
-        openDirectory(currentDirectory, sortFileUtil.SortType.none);
+        openDirectory(currentDirectory, sortFileUtil.SortType.name);
 
         //
         if (getActionBar() != null) {
@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            openDirectory(new File(getString(R.string.download_directory)), sortFileUtil.SortType.none);
+            openDirectory(new File(getString(R.string.download_directory)), sortFileUtil.SortType.name);
         } else if (id == R.id.action_about) {
             openAbout();
         } else if (id == R.id.action_settings) {
@@ -167,7 +167,7 @@ public class MainActivity extends Activity {
                 boolean prefHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
                 if (prefHiddenFileShowed != isHiddenFileShowed) {
                     isHiddenFileShowed = prefHiddenFileShowed;
-                    openDirectory(currentDirectory, sortFileUtil.SortType.none);
+                    openDirectory(currentDirectory, sortFileUtil.SortType.name);
                 }
                 break;
         }
@@ -193,31 +193,31 @@ public class MainActivity extends Activity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void openSorting() {
 
         if (alertDialogSorting == null) {
             alertDialogSorting = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_sorting_values), 0);
-        }
-        alertDialogSorting.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                switch (alertDialogSorting.getCriteriaPosition()) {
-                    case 0:
-                        openDirectory(currentDirectory, sortFileUtil.SortType.name);
-                        break;
-                    case 1:
-                        openDirectory(currentDirectory, sortFileUtil.SortType.length);
-                        break;
-                    case 2:
-                        openDirectory(currentDirectory, sortFileUtil.SortType.date);
-                        break;
-                    default:
-                        break;
+            alertDialogSorting.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    switch (alertDialogSorting.getCriteriaPosition()) {
+                        case 0:
+                            openDirectory(currentDirectory, sortFileUtil.SortType.name);
+                            break;
+                        case 1:
+                            openDirectory(currentDirectory, sortFileUtil.SortType.length);
+                            break;
+                        case 2:
+                            openDirectory(currentDirectory, sortFileUtil.SortType.date);
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-        });
+            });
+        }
         alertDialogSorting.show();
     }
 
@@ -249,7 +249,7 @@ public class MainActivity extends Activity {
 
     // Surcharge
     public void openDirectory(FileAndroid fileAndroid) {
-        openDirectory(fileAndroid.getFile(), sortFileUtil.SortType.none);
+        openDirectory(fileAndroid.getFile(), sortFileUtil.SortType.name);
     }
 
     // Update the FragmentFiles with the ArrayList of File in parameter

@@ -24,8 +24,11 @@ public abstract class sortFileUtil {
                         if(_f2!=null) return -1;
                     }
                     if (_f2==null) return 1;
-                    int resultat = _f1.getName().compareTo(_f2.getName());
-                    return resultat;
+
+                    if(_f1.isDirectory() && !_f2.isDirectory()) return -1;
+                    if (!_f1.isDirectory() && _f2.isDirectory()) return 1;
+
+                    return _f1.getName().toUpperCase().compareTo(_f2.getName().toUpperCase());
                 }
             };
             java.util.Collections.sort(_listFile, sortName);
@@ -43,6 +46,10 @@ public abstract class sortFileUtil {
                         if(_f2!=null) return -1;
                     }
                     if (_f2==null) return 1;
+
+                    if(_f1.isDirectory() && !_f2.isDirectory()) return -1;
+                    if (!_f1.isDirectory() && _f2.isDirectory()) return 1;
+
                     boolean resTest = _f1.length() < _f2.length();
                     int result = resTest ? 1 : -1;
                     return result;
@@ -62,6 +69,10 @@ public abstract class sortFileUtil {
                         if(_f2!=null) return -1;
                     }
                     if (_f2==null) return 1;
+
+                    if(_f1.isDirectory() && !_f2.isDirectory()) return -1;
+                    if (!_f1.isDirectory() && _f2.isDirectory()) return 1;
+
                     Date f1Date = new Date(_f1.lastModified());
                     Date f2Date = new Date(_f2.lastModified());
                     boolean resTest = (f1Date.getTime() - f2Date.getTime()) < 0;
