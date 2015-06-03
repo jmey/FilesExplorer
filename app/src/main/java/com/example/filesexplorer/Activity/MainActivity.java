@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                openDirectory(currentDirectory);
+                openDirectory(currentDirectory, sortFileUtil.SortType.name);
                 return true;
             }
         });
