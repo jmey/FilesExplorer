@@ -1,10 +1,8 @@
 package com.example.filesexplorer.Activity;
 
-import android.content.SharedPreferences;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import com.example.filesexplorer.R;
 

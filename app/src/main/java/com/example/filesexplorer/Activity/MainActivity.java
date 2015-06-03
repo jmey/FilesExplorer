@@ -1,5 +1,6 @@
 package com.example.filesexplorer.Activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
@@ -18,6 +20,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.filesexplorer.AsyncTask.FilesSearching;
+import com.example.filesexplorer.Utils.sortFileUtil;
 import com.example.filesexplorer.Widget.AlertDialogRadioButton;
 import com.example.filesexplorer.Enum.DisplayMode;
 import com.example.filesexplorer.Model.FileAndroid;
@@ -69,7 +72,7 @@ public class MainActivity extends Activity {
         transaction.commit();
 
         // Fill the fragment with the files of the currentDirectory
-        openDirectory(currentDirectory);
+        openDirectory(currentDirectory, sortFileUtil.SortType.none);
 
         //
         if (getActionBar() != null) {
@@ -138,7 +141,7 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            openDirectory(new File(getString(R.string.download_directory)));
+            openDirectory(new File(getString(R.string.download_directory)), sortFileUtil.SortType.none);
         } else if (id == R.id.action_about) {
             openAbout();
         } else if (id == R.id.action_settings) {
@@ -164,7 +167,7 @@ public class MainActivity extends Activity {
                 boolean prefHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
                 if (prefHiddenFileShowed != isHiddenFileShowed) {
                     isHiddenFileShowed = prefHiddenFileShowed;
-                    openDirectory(currentDirectory);
+                    openDirectory(currentDirectory, sortFileUtil.SortType.none);
                 }
                 break;
         }
@@ -190,30 +193,54 @@ public class MainActivity extends Activity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void openSorting() {
+
         if (alertDialogSorting == null) {
             alertDialogSorting = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_sorting_values), 0);
         }
+        alertDialogSorting.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                switch (alertDialogSorting.getCriteriaPosition()) {
+                    case 0:
+                        openDirectory(currentDirectory, sortFileUtil.SortType.name);
+                        break;
+                    case 1:
+                        openDirectory(currentDirectory, sortFileUtil.SortType.length);
+                        break;
+                    case 2:
+                        openDirectory(currentDirectory, sortFileUtil.SortType.date);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         alertDialogSorting.show();
     }
 
-    public void openDirectory(File file) {
+    public void openDirectory(File file, sortFileUtil.SortType st) {
         File[] arrayFiles = file.listFiles();
 
         if (arrayFiles != null) {
             ArrayList<File> files = new ArrayList<File>();
 
-            // From File[] to ArrayList<File> with adding the parent if it's not the root directory
-            if (!file.getPath().equals("/")) {
-                files.add(file.getParentFile());
-            }
             Collections.addAll(files, arrayFiles);
 
+            currentDirectory = file;
+            sortFileUtil.triPar(st,files);
+
+            // From File[] to ArrayList<File> with adding the parent if it's not the root directory
+            if (!file.getPath().equals("/")) {
+                files.add(0,file.getParentFile());
+            }
             boolean hasParent = false;
             if (files.size() > arrayFiles.length) { // We have had an element, which is the parent
                 hasParent = true;
             }
-            currentDirectory = file;
+
             updateFragmentFiles(files, hasParent);
         } else {
             Toast.makeText(this, "Cannot open this directory for some reason", Toast.LENGTH_SHORT).show();
@@ -222,7 +249,7 @@ public class MainActivity extends Activity {
 
     // Surcharge
     public void openDirectory(FileAndroid fileAndroid) {
-        openDirectory(fileAndroid.getFile());
+        openDirectory(fileAndroid.getFile(), sortFileUtil.SortType.none);
     }
 
     // Update the FragmentFiles with the ArrayList of File in parameter

@@ -8,8 +8,8 @@ import java.util.List;
 
 public abstract class sortFileUtil {
 
-    static enum SortType { name, length, date };
-    private static void triPar(SortType _type, List<File> _listFile )
+    public static enum SortType { name, length, date, none };
+    public static void triPar(SortType _type, List<File> _listFile )
     {
         if(_type == SortType.name)
         {
@@ -63,7 +63,7 @@ public abstract class sortFileUtil {
                     }
                     if (_f2==null) return 1;
                     Date f1Date = new Date(_f1.lastModified());
-                    Date f2Date = new Date(_f1.lastModified());
+                    Date f2Date = new Date(_f2.lastModified());
                     boolean resTest = (f1Date.getTime() - f2Date.getTime()) < 0;
                     int result = resTest ? 1 : -1;
                     return result;

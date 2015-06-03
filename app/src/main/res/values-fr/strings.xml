@@ -68,7 +68,6 @@
     <string-array name="list_sorting_values">
         <item>Nom</item>
         <item>Taille</item>
-        <item>Catégorie</item>
         <item>Date</item>
     </string-array>
 

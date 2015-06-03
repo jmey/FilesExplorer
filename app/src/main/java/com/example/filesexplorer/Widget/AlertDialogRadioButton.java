@@ -25,16 +25,6 @@ public class AlertDialogRadioButton extends AlertDialog.Builder {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 criteriaPosition = item;
-
-                switch (item) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    default:
-                        break;
-                }
-
                 dialog.dismiss();
             }
         });
@@ -46,5 +36,10 @@ public class AlertDialogRadioButton extends AlertDialog.Builder {
     public AlertDialog show() {
         createTheDialog();
         return super.show();
+    }
+
+    public int getCriteriaPosition() {
+
+        return criteriaPosition;
     }
 }
