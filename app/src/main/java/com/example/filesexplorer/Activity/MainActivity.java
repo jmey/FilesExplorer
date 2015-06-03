@@ -18,7 +18,8 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.filesexplorer.AsyncTask.FilesSearching;
-import com.example.filesexplorer.Utils.sortFileUtil;
+import com.example.filesexplorer.Enum.SortType;
+import com.example.filesexplorer.Utils.SortFileUtil;
 import com.example.filesexplorer.Widget.AlertDialogRadioButton;
 import com.example.filesexplorer.Enum.DisplayMode;
 import com.example.filesexplorer.Model.FileAndroid;
@@ -41,7 +42,6 @@ public class MainActivity extends Activity {
     private File currentDirectory;
 
     private AlertDialogRadioButton alertDialogSorting = null;
-    private AlertDialogRadioButton alertDialogDisplaying = null;
 
     private boolean isHiddenFileShowed;
 
@@ -55,6 +55,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activity = this;
+
+        // Init the alertDialog with the sorting list
+        alertDialogSorting = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_sorting_values));
 
         // Get the last directory saved in the preferences file
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -70,13 +73,14 @@ public class MainActivity extends Activity {
         transaction.commit();
 
         // Fill the fragment with the files of the currentDirectory
-        openDirectory(currentDirectory, sortFileUtil.SortType.name);
+        openDirectory(currentDirectory, alertDialogSorting.getSortType());
 
-        //
         if (getActionBar() != null) {
             getActionBar().setHomeButtonEnabled(true);
             getActionBar().setTitle(currentDirectory.getPath());
         }
+
+
     }
 
     @Override
@@ -109,7 +113,7 @@ public class MainActivity extends Activity {
                 if (!newText.equals("")) {
                     FilesSearching.getInstance().searchFilesByAsyncTask(activity, newText);
                 } else {
-                    updateFragmentFiles(new ArrayList<File>(), false);
+                    updateFragmentFiles(new ArrayList<File>(), false); // Empty list
                 }
                 return true;
             }
@@ -125,7 +129,7 @@ public class MainActivity extends Activity {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                openDirectory(currentDirectory, sortFileUtil.SortType.name);
+                openDirectory(currentDirectory, alertDialogSorting.getSortType());
                 return true;
             }
         });
@@ -140,14 +144,16 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            openDirectory(new File(getString(R.string.download_directory)), sortFileUtil.SortType.name);
+            openDirectory(new File(getString(R.string.download_directory)), alertDialogSorting.getSortType());
         } else if (id == R.id.action_about) {
-            openAbout();
+            DialogFragmentAbout dialog = DialogFragmentAbout.newInstance(R.string.action_about);
+            dialog.show(getFragmentManager(), "FragmentTransaction.add");
         } else if (id == R.id.action_settings) {
             Intent i = new Intent(this, UserSettingsActivity.class);
             startActivityForResult(i, RESULT_SETTINGS);
         } else if (id == R.id.action_sorting) {
-            openSorting();
+            alertDialogSorting.setDirectory(currentDirectory);
+            alertDialogSorting.show();
         } else if (id == R.id.action_display_list) {
             fragmentFiles.setDisplayMode(DisplayMode.LIST);
         } else if (id == R.id.action_display_grid) {
@@ -166,7 +172,7 @@ public class MainActivity extends Activity {
                 boolean prefHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
                 if (prefHiddenFileShowed != isHiddenFileShowed) {
                     isHiddenFileShowed = prefHiddenFileShowed;
-                    openDirectory(currentDirectory, sortFileUtil.SortType.name);
+                    openDirectory(currentDirectory, alertDialogSorting.getSortType());
                 }
                 break;
         }
@@ -175,7 +181,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         try {
-            openDirectory(new FileAndroid(this, currentDirectory.getParentFile()));
+            openDirectory(currentDirectory.getParentFile(), alertDialogSorting.getSortType());
         } catch (Exception e) {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -192,35 +198,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void openSorting() {
-
-        if (alertDialogSorting == null) {
-            alertDialogSorting = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_sorting_values), 0);
-
-            alertDialogSorting.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    switch (alertDialogSorting.getCriteriaPosition()) {
-                        case 0:
-                            openDirectory(currentDirectory, sortFileUtil.SortType.name);
-                            break;
-                        case 1:
-                            openDirectory(currentDirectory, sortFileUtil.SortType.length);
-                            break;
-                        case 2:
-                            openDirectory(currentDirectory, sortFileUtil.SortType.date);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
-        }
-        alertDialogSorting.show();
-    }
-
-    public void openDirectory(File file, sortFileUtil.SortType st) {
+    public void openDirectory(File file, SortType sortType) {
         File[] arrayFiles = file.listFiles();
 
         if (arrayFiles != null) {
@@ -229,11 +207,11 @@ public class MainActivity extends Activity {
             Collections.addAll(files, arrayFiles);
 
             currentDirectory = file;
-            sortFileUtil.triPar(st,files);
+            SortFileUtil.sortBy(sortType, files);
 
             // From File[] to ArrayList<File> with adding the parent if it's not the root directory
             if (!file.getPath().equals("/")) {
-                files.add(0,file.getParentFile());
+                files.add(0, file.getParentFile());
             }
             boolean hasParent = false;
             if (files.size() > arrayFiles.length) { // We have had an element, which is the parent
@@ -248,7 +226,7 @@ public class MainActivity extends Activity {
 
     // Surcharge
     public void openDirectory(FileAndroid fileAndroid) {
-        openDirectory(fileAndroid.getFile(), sortFileUtil.SortType.name);
+        openDirectory(fileAndroid.getFile(), alertDialogSorting.getSortType());
     }
 
     // Update the FragmentFiles with the ArrayList of File in parameter
@@ -337,10 +315,5 @@ public class MainActivity extends Activity {
 
     public File getCurrentDirectory() {
         return currentDirectory;
-    }
-
-    private void openAbout() {
-        DialogFragmentAbout dialog = DialogFragmentAbout.newInstance(R.string.action_about);
-        dialog.show(getFragmentManager(), "FragmentTransaction.add");
     }
 }

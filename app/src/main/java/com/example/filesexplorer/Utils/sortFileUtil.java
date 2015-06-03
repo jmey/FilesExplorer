@@ -1,15 +1,17 @@
 package com.example.filesexplorer.Utils;
 
+import com.example.filesexplorer.Enum.SortType;
+
 import java.io.File;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 
-public abstract class sortFileUtil {
+public abstract class SortFileUtil {
 
-    public static enum SortType { name, length, date, none };
-    public static void triPar(SortType _type, List<File> _listFile )
+//    public static enum SortType { name, length, date, none };
+    public static void sortBy(SortType _type, List<File> _listFile )
     {
         if(_type == SortType.name)
         {
