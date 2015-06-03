@@ -121,12 +121,13 @@ public class MainActivity extends Activity {
         MenuItemCompat.setOnActionExpandListener(itemSearch, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
+                updateFragmentFiles(new ArrayList<File>(), false);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                openDirectory(new FileAndroid(activity, currentDirectory));
+                openDirectory(currentDirectory);
                 return true;
             }
         });
