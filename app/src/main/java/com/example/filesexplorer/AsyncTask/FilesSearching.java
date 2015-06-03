@@ -56,7 +56,7 @@ public class FilesSearching {
 
             while(!nextDirectoryToSearch.isEmpty())
             {
-                if (isCancelled()) { break; }
+                if (isCancelled()) { return null; }
                 File directory = nextDirectoryToSearch.get(0);
                 if(directory.listFiles() != null)
                 {
@@ -80,7 +80,9 @@ public class FilesSearching {
 
         @Override
         protected void onPostExecute(ArrayList<File> files) {
-            activity.updateFragmentFiles(files, false);
+            if (files != null) {
+                activity.updateFragmentFiles(files, false);
+            }
         }
     }
 }
