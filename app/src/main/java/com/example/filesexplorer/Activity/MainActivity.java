@@ -73,11 +73,7 @@ public class MainActivity extends Activity {
         transaction.commit();
 
         // Fill the fragment with the files of the currentDirectory
-<<<<<<< HEAD
         openDirectory(currentDirectory, alertDialogSorting.getSortType());
-=======
-        openDirectory(currentDirectory, sortFileUtil.SortType.name);
->>>>>>> origin/master
 
         if (getActionBar() != null) {
             getActionBar().setHomeButtonEnabled(true);
@@ -133,11 +129,7 @@ public class MainActivity extends Activity {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-<<<<<<< HEAD
                 openDirectory(currentDirectory, alertDialogSorting.getSortType());
-=======
-                openDirectory(currentDirectory, sortFileUtil.SortType.name);
->>>>>>> origin/master
                 return true;
             }
         });
@@ -152,11 +144,7 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-<<<<<<< HEAD
             openDirectory(new File(getString(R.string.download_directory)), alertDialogSorting.getSortType());
-=======
-            openDirectory(new File(getString(R.string.download_directory)), sortFileUtil.SortType.name);
->>>>>>> origin/master
         } else if (id == R.id.action_about) {
             DialogFragmentAbout dialog = DialogFragmentAbout.newInstance(R.string.action_about);
             dialog.show(getFragmentManager(), "FragmentTransaction.add");
@@ -184,11 +172,7 @@ public class MainActivity extends Activity {
                 boolean prefHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
                 if (prefHiddenFileShowed != isHiddenFileShowed) {
                     isHiddenFileShowed = prefHiddenFileShowed;
-<<<<<<< HEAD
                     openDirectory(currentDirectory, alertDialogSorting.getSortType());
-=======
-                    openDirectory(currentDirectory, sortFileUtil.SortType.name);
->>>>>>> origin/master
                 }
                 break;
         }
@@ -214,39 +198,7 @@ public class MainActivity extends Activity {
         }
     }
 
-<<<<<<< HEAD
     public void openDirectory(File file, SortType sortType) {
-=======
-    private void openSorting() {
-
-        if (alertDialogSorting == null) {
-            alertDialogSorting = new AlertDialogRadioButton(this, getResources().getStringArray(R.array.list_sorting_values), 0);
-
-            alertDialogSorting.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    switch (alertDialogSorting.getCriteriaPosition()) {
-                        case 0:
-                            openDirectory(currentDirectory, sortFileUtil.SortType.name);
-                            break;
-                        case 1:
-                            openDirectory(currentDirectory, sortFileUtil.SortType.length);
-                            break;
-                        case 2:
-                            openDirectory(currentDirectory, sortFileUtil.SortType.date);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
-        }
-        alertDialogSorting.show();
-    }
-
-    public void openDirectory(File file, sortFileUtil.SortType st) {
->>>>>>> origin/master
         File[] arrayFiles = file.listFiles();
 
         if (arrayFiles != null) {
@@ -274,11 +226,7 @@ public class MainActivity extends Activity {
 
     // Surcharge
     public void openDirectory(FileAndroid fileAndroid) {
-<<<<<<< HEAD
         openDirectory(fileAndroid.getFile(), alertDialogSorting.getSortType());
-=======
-        openDirectory(fileAndroid.getFile(), sortFileUtil.SortType.name);
->>>>>>> origin/master
     }
 
     // Update the FragmentFiles with the ArrayList of File in parameter
