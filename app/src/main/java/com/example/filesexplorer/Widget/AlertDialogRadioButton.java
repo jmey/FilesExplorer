@@ -39,21 +39,23 @@ public class AlertDialogRadioButton extends AlertDialog.Builder {
     private DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int item) {
-            switch (criterionPosition = item) {
-                case 0:
-                    activity.openDirectory(directory, SortType.name);
-                    sortType = SortType.name;
-                    break;
-                case 1:
-                    activity.openDirectory(directory, SortType.length);
-                    sortType = SortType.length;
-                    break;
-                case 2:
-                    activity.openDirectory(directory, SortType.date);
-                    sortType = SortType.date;
-                    break;
-                default:
-                    break;
+            if (criterionPosition != item) {
+                switch (criterionPosition = item) {
+                    case 0:
+                        activity.openDirectory(directory, SortType.name);
+                        sortType = SortType.name;
+                        break;
+                    case 1:
+                        activity.openDirectory(directory, SortType.length);
+                        sortType = SortType.length;
+                        break;
+                    case 2:
+                        activity.openDirectory(directory, SortType.date);
+                        sortType = SortType.date;
+                        break;
+                    default:
+                        break;
+                }
             }
             dialog.dismiss();
         }
