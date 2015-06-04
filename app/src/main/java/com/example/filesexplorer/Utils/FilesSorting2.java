@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public abstract class SortFileUtil {
+public abstract class FilesSorting2 {
 
 //    public static enum SortType { name, length, date, none };
     public static void sortBy(SortType _type, List<File> _listFile )
