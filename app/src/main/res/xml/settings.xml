@@ -1,22 +1,7 @@
 <!--?xml version="1.0" encoding="utf-8"?-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="Général">
-
-        <ListPreference
-            android:key="pref_displaying"
-            android:title="@string/displayingpreferencetitle"
-            android:entries="@array/list_displaying_titles"
-            android:entryValues="@array/list_displaying_values"
-            android:defaultValue="0"/>
-
-        <EditTextPreference
-            android:key="pref_text_size"
-            android:title="@string/pref_text_size"
-            android:defaultValue="20"
-            android:numeric="integer">
-        </EditTextPreference>
+    <PreferenceCategory android:title="General">
 
         <CheckBoxPreference
             android:key="pref_hidden_file"

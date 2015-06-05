@@ -79,12 +79,7 @@ public class MainActivity extends Activity {
         transaction.commit();
 
         // Fill the fragment with the files of the currentDirectory
-        openDirectory(currentDirectory, alertDialogSorting.getSortCriterion());
-
-        if (getActionBar() != null) {
-            getActionBar().setHomeButtonEnabled(true);
-            getActionBar().setTitle(currentDirectory.getPath());
-        }
+        openDirectory(currentDirectory);
     }
 
     @Override
@@ -118,7 +113,7 @@ public class MainActivity extends Activity {
                 if (!newText.equals("")) {
                     FilesSearching.getInstance().searchFilesByAsyncTask(activity, newText);
                 } else {
-                    openDirectory(currentDirectory, alertDialogSorting.getSortCriterion());
+                    openDirectory(currentDirectory);
                 }
                 return true;
             }
@@ -163,7 +158,7 @@ public class MainActivity extends Activity {
                 boolean prefHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
                 if (prefHiddenFileShowed != isHiddenFileShowed) {
                     isHiddenFileShowed = prefHiddenFileShowed;
-                    openDirectory(currentDirectory, alertDialogSorting.getSortCriterion());
+                    openDirectory(currentDirectory);
                 }
                 break;
         }
@@ -172,7 +167,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         try {
-            openDirectory(currentDirectory.getParentFile(), alertDialogSorting.getSortCriterion());
+            openDirectory(currentDirectory.getParentFile());
         } catch (Exception e) {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -200,16 +195,7 @@ public class MainActivity extends Activity {
             currentDirectory = file;
             FilesSorting.sortBy(files, sortCriterion, sortSense);
 
-            // From File[] to ArrayList<File> with adding the parent if it's not the root directory
-            if (!file.getPath().equals("/")) {
-                files.add(0, file.getParentFile());
-            }
-            boolean hasParent = false;
-            if (files.size() > arrayFiles.length) { // We have had an element, which is the parent
-                hasParent = true;
-            }
-
-            updateFragmentFiles(files, hasParent);
+            updateFragmentFiles(files);
 
             if (currentDirectory.getPath().equals("/")) {
                 getActionBar().setHomeButtonEnabled(false);
@@ -238,21 +224,14 @@ public class MainActivity extends Activity {
 
     // Update the FragmentFiles with the ArrayList of File in parameter
     // If hasParent is at true, the first element of the ArrayList is this parent
-    public void updateFragmentFiles(ArrayList<File> files, boolean hasParent) {
+    public void updateFragmentFiles(ArrayList<File> files) {
         try {
             ArrayList<Object> objects = new ArrayList<Object>();
 
-            int i = 0;
-            if (hasParent) {
-                objects.add(new FileAndroid(this, files.get(0), true));
-                i = 1;
-            }
-
-            while (i < files.size()) {
-                if (isHiddenFileShowed || !files.get(i).isHidden()) {
-                    objects.add(new FileAndroid(this, files.get(i)));
+            for (File file : files) {
+                if (isHiddenFileShowed || !file.isHidden()) {
+                    objects.add(new FileAndroid(this, file));
                 }
-                i++;
             }
 
             fragmentFiles.setEntriesList(objects);

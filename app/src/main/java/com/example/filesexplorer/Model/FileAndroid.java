@@ -21,10 +21,10 @@ public class FileAndroid implements IObservable {
     private Bitmap bitmap;
     private Date date;
     private String extension;
-    private boolean isBackDirectory;        // Peut-être à modifier ... sert à identifier le dossier nommé de retour
     private static HashMap<String, Integer> extensions;    // static pour ne garder qu'une seule instance
     private ArrayList<IObserver> observers;
     private static Context context;
+
     private static List<String> typesPicture;
     private static List<String> typesMusic;
     private static List<String> typesVideo;
@@ -68,12 +68,6 @@ public class FileAndroid implements IObservable {
                 this.icon = R.drawable.icon_unknown;
             }
         }
-    }
-
-    public FileAndroid(Context context, File file, boolean isBackDirectory) {
-        this(context, file);
-        this.isBackDirectory = isBackDirectory;
-        this.icon = R.drawable.icon_back;
     }
 
     public boolean isPicture() {
@@ -168,14 +162,6 @@ public class FileAndroid implements IObservable {
 
     public boolean isDirectory() {
         return file.isDirectory();
-    }
-
-    public boolean isBackDirectory() {
-        return isBackDirectory;
-    }
-
-    public void setBackDirectory(boolean isBackDirectory) {
-        this.isBackDirectory = isBackDirectory;
     }
 
     public String getExtension() {

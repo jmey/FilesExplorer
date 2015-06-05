@@ -81,7 +81,7 @@ public class FilesSearching {
         @Override
         protected void onPostExecute(ArrayList<File> files) {
             if (files != null) {
-                activity.updateFragmentFiles(files, false);
+                activity.updateFragmentFiles(files);
             }
         }
     }

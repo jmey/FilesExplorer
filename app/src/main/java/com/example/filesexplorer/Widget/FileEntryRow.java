@@ -87,11 +87,7 @@ public class FileEntryRow extends RelativeLayout implements IObserver {
 	
 	private void displayFileName() {
 		if (fileNameTextView != null) {
-			if (file.isBackDirectory()) {
-				fileNameTextView.setText("");
-			} else {
-				fileNameTextView.setText(file.getFile().getName());
-			}
+            fileNameTextView.setText(file.getFile().getName());
 		}
 	}
 
