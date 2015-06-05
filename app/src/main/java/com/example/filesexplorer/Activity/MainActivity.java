@@ -40,7 +40,8 @@ public class MainActivity extends Activity {
 //	private final String TAG = getClass().getSimpleName();
     private MainActivity activity;
 	private static FragmentFiles fragmentFiles;
-    private File currentDirectory;
+    private static File currentDirectory;
+    private Menu menu;
 
     private AlertDialogSortingFiles alertDialogSorting = null;
 
@@ -60,15 +61,19 @@ public class MainActivity extends Activity {
         // Init the alertDialog with the sorting list
         alertDialogSorting = new AlertDialogSortingFiles(this, getResources().getStringArray(R.array.list_sorting_values));
 
-        // Get the last directory saved in the preferences file
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
+        if (currentDirectory == null) {
+            // Get the last directory saved in the preferences file
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
+        }
 
         // Get the property to know if the preference is checked or not
         isHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
 
         // Instantiate and add the fragment of files
-        fragmentFiles = new FragmentFiles(DisplayMode.GRID);
+        if (fragmentFiles == null) {
+            fragmentFiles = new FragmentFiles();
+        }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_files, fragmentFiles);
         transaction.commit();
@@ -96,6 +101,7 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
 
         MenuItem itemSearch = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView)itemSearch.getActionView();
@@ -128,7 +134,9 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            openDirectory(new File(getString(R.string.download_directory)), alertDialogSorting.getSortCriterion());
+            if (!currentDirectory.getPath().equals("/")) {
+                openDirectory(currentDirectory.getParentFile());
+            }
         } else if (id == R.id.action_about) {
             DialogFragmentAbout dialog = DialogFragmentAbout.newInstance(R.string.action_about);
             dialog.show(getFragmentManager(), "FragmentTransaction.add");
@@ -138,13 +146,12 @@ public class MainActivity extends Activity {
         } else if (id == R.id.action_sorting) {
             alertDialogSorting.setDirectory(currentDirectory);
             alertDialogSorting.show();
-        } else if (id == R.id.action_display_list) {
-            fragmentFiles.setDisplayMode(DisplayMode.LIST);
-        } else if (id == R.id.action_display_grid) {
-            fragmentFiles.setDisplayMode(DisplayMode.GRID);
+        } else if (id == R.id.action_display) {
+            fragmentFiles.toggleDisplayMode();
         } else {
                 return super.onOptionsItemSelected(item);
         }
+
         return true;
     }
 
@@ -203,6 +210,14 @@ public class MainActivity extends Activity {
             }
 
             updateFragmentFiles(files, hasParent);
+
+            if (currentDirectory.getPath().equals("/")) {
+                getActionBar().setHomeButtonEnabled(false);
+                getActionBar().setDisplayHomeAsUpEnabled(false);
+            } else {
+                getActionBar().setHomeButtonEnabled(true);
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+            }
         } else {
             Toast.makeText(this, "Cannot open this directory for some reason", Toast.LENGTH_SHORT).show();
         }
@@ -215,6 +230,10 @@ public class MainActivity extends Activity {
 
     public void openDirectory(File file, SortCriterion sortCriterion) {
         openDirectory(file, sortCriterion, alertDialogSorting.getSortSense());
+    }
+
+    public void openDirectory(File file) {
+        openDirectory(file, alertDialogSorting.getSortCriterion(), alertDialogSorting.getSortSense());
     }
 
     // Update the FragmentFiles with the ArrayList of File in parameter
@@ -303,5 +322,13 @@ public class MainActivity extends Activity {
 
     public File getCurrentDirectory() {
         return currentDirectory;
+    }
+
+    public void toggleButtonDisplayMode(DisplayMode mode) {
+        if (mode == DisplayMode.LIST) {
+            menu.findItem(R.id.action_display).setIcon(R.drawable.icon_grid);
+        } else if (mode == DisplayMode.GRID) {
+            menu.findItem(R.id.action_display).setIcon(R.drawable.icon_list);
+        }
     }
 }

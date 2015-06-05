@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import com.example.filesexplorer.Activity.MainActivity;
 import com.example.filesexplorer.Adapter.AdapterFileEntryRow;
 import com.example.filesexplorer.Enum.DisplayMode;
 import com.example.filesexplorer.R;
@@ -23,7 +25,9 @@ public class FragmentFiles extends Fragment {
     private GridView gridView;
     private ListView listView;
 
-    public FragmentFiles() {}
+    public FragmentFiles() {
+        this.mode = DisplayMode.GRID;
+    }
 
     public FragmentFiles(DisplayMode mode) {
         this.mode = mode;
@@ -75,6 +79,28 @@ public class FragmentFiles extends Fragment {
                 listView.setVisibility(View.VISIBLE);
             }
             this.mode = mode;
+        }
+    }
+
+    public void toggleDisplayMode() {
+        if (objectEntries != null) {
+
+            this.mode = mode == DisplayMode.GRID ? DisplayMode.LIST : DisplayMode.GRID;
+            adapter = new AdapterFileEntryRow(getActivity(), objectEntries, mode);
+
+            if (mode == DisplayMode.GRID) {
+                gridView.setAdapter(adapter);
+                gridView.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+            } else if (mode == DisplayMode.LIST) {
+                listView.setAdapter(adapter);
+                gridView.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+            }
+
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity)getActivity()).toggleButtonDisplayMode(mode);
+            }
         }
     }
 }

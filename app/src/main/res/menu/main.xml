@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/action_sorting"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/action_sorting"
         android:enabled="true"/>
 
@@ -27,14 +27,8 @@
         android:title="@string/action_about"/>
 
     <item
-        android:id="@+id/action_display_list"
-        android:title="@string/action_display_list"
+        android:id="@+id/action_display"
+        android:title="display"
         android:icon="@drawable/icon_list"
-        android:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/action_display_grid"
-        android:title="@string/action_display_grid"
-        android:icon="@drawable/icon_grid"
         android:showAsAction="ifRoom"/>
 </menu>

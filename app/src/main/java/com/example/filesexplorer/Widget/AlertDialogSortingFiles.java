@@ -41,21 +41,9 @@ public class AlertDialogSortingFiles extends AlertDialog.Builder {
     private DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int item) {
-            switch (item) {
-                case 0:
-                    sortCriterion = SortCriterion.FILENAME;
-                    break;
-                case 1:
-                    sortCriterion = SortCriterion.SIZE;
-                    break;
-                case 2:
-                    sortCriterion = SortCriterion.DATE;
-                    break;
-                default:
-                    break;
-            }
             if (criterionPosition != item) {
                 criterionPosition = item;
+                sortCriterion = SortCriterion.get(item);
             } else {
                 sortSense = sortSense == SortSense.ASC ? SortSense.DESC : SortSense.ASC;
             }
