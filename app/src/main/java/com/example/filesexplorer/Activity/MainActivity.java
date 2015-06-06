@@ -58,14 +58,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         activity = this;
 
-        // Init the alertDialog with the sorting list
-        alertDialogSorting = new AlertDialogSortingFiles(this, getResources().getStringArray(R.array.list_sorting_values));
-
         if (currentDirectory == null) {
             // Get the last directory saved in the preferences file
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
             currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
         }
+
+        // Init the alertDialog with the sorting list
+        alertDialogSorting = new AlertDialogSortingFiles(this, getResources().getStringArray(R.array.list_sorting_values));
 
         // Get the property to know if the preference is checked or not
         isHiddenFileShowed = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_hidden_file", false);
@@ -141,8 +141,19 @@ public class MainActivity extends Activity {
         } else if (id == R.id.action_sorting) {
             alertDialogSorting.setDirectory(currentDirectory);
             alertDialogSorting.show();
+        } else if (id == R.id.action_sorting_sense) {
+            alertDialogSorting.setDirectory(currentDirectory);
+            alertDialogSorting.reverseSortingSense();
         } else if (id == R.id.action_display) {
             fragmentFiles.toggleDisplayMode();
+        } else if (id == R.id.action_search_all_documents) {
+
+        } else if (id == R.id.action_search_all_images) {
+
+        } else if (id == R.id.action_search_all_musics) {
+
+        } else if (id == R.id.action_search_all_videos) {
+
         } else {
                 return super.onOptionsItemSelected(item);
         }

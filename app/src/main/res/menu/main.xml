@@ -17,6 +17,41 @@
         android:enabled="true"/>
 
     <item
+        android:id="@+id/action_sorting_sense"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_sorting_sense"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_display"
+        android:title="display"
+        android:icon="@drawable/icon_list"
+        android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_search_all_images"
+        android:showAsAction="never"
+        android:title="@string/action_search_all_images"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_search_all_videos"
+        android:showAsAction="never"
+        android:title="@string/action_search_all_videos"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_search_all_documents"
+        android:showAsAction="never"
+        android:title="@string/action_search_all_documents"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_search_all_musics"
+        android:showAsAction="never"
+        android:title="@string/action_search_all_musics"
+        android:enabled="true"/>
+
+    <item
         android:id="@+id/action_settings"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
@@ -26,9 +61,4 @@
         android:showAsAction="never"
         android:title="@string/action_about"/>
 
-    <item
-        android:id="@+id/action_display"
-        android:title="display"
-        android:icon="@drawable/icon_list"
-        android:showAsAction="ifRoom"/>
 </menu>
