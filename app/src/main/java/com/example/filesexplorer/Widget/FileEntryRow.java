@@ -122,7 +122,7 @@ public class FileEntryRow extends RelativeLayout implements IObserver {
 
 				if (activity instanceof MainActivity) {
 					if (file.isDirectory()) {
-						((MainActivity)activity).openDirectory(file);
+						((MainActivity)activity).openDirectory(file.getFile());
 					} else {
 						((MainActivity)activity).openFile(file);
 					}

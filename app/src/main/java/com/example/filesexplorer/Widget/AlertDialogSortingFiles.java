@@ -16,15 +16,11 @@ public class AlertDialogSortingFiles extends AlertDialog.Builder {
     private MainActivity activity;
     private String[] criteria;
     private int criterionPosition = 0;
-    private File directory;
-    private SortCriterion sortCriterion = SortCriterion.FILENAME;
-    private SortSense sortSense = SortSense.ASC;
 
     public AlertDialogSortingFiles(Context context, String[] criteria) {
         super(context);
         this.setTitle(R.string.action_displaying);
         this.criteria = criteria;
-        this.directory = directory;
         try {
             activity = (MainActivity)context;
         } catch (Exception e) {
@@ -44,27 +40,9 @@ public class AlertDialogSortingFiles extends AlertDialog.Builder {
         public void onClick(DialogInterface dialog, int item) {
             if (criterionPosition != item) {
                 criterionPosition = item;
-                sortCriterion = SortCriterion.get(item);
-                activity.openDirectory(directory, sortCriterion, sortSense);
+                activity.sortFragmentFilesBy(SortCriterion.get(item));
             }
             dialog.dismiss();
         }
     };
-
-    public void setDirectory(File directory) {
-        this.directory = directory;
-    }
-
-    public SortCriterion getSortCriterion() {
-        return sortCriterion;
-    }
-
-    public SortSense getSortSense() {
-        return sortSense;
-    }
-
-    public void reverseSortingSense() {
-        sortSense = sortSense == SortSense.ASC ? SortSense.DESC : SortSense.ASC;
-        activity.openDirectory(directory, sortCriterion, sortSense);
-    }
 }

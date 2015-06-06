@@ -1,6 +1,7 @@
 package com.example.filesexplorer.Fragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -14,7 +15,11 @@ import android.widget.ListView;
 import com.example.filesexplorer.Activity.MainActivity;
 import com.example.filesexplorer.Adapter.AdapterFileEntryRow;
 import com.example.filesexplorer.Enum.DisplayMode;
+import com.example.filesexplorer.Enum.SortCriterion;
+import com.example.filesexplorer.Enum.SortSense;
+import com.example.filesexplorer.Model.FileAndroid;
 import com.example.filesexplorer.R;
+import com.example.filesexplorer.Utils.FilesSorting;
 
 public class FragmentFiles extends Fragment {
 //	final private static String TAG =  FragmentFiles.class.getSimpleName();
@@ -24,6 +29,9 @@ public class FragmentFiles extends Fragment {
     private DisplayMode mode;
     private GridView gridView;
     private ListView listView;
+
+    private SortSense sortSense = SortSense.ASC;
+    private SortCriterion sortCriterion = SortCriterion.FILENAME;
 
     public FragmentFiles() {
         this.mode = DisplayMode.GRID;
@@ -54,11 +62,15 @@ public class FragmentFiles extends Fragment {
 		return inflatedView;
 	}
 
-	public void setEntriesList(ArrayList<Object> objectEntries) {
+	public void setEntriesList(ArrayList<Object> objectEntries, boolean sort) {
 		this.objectEntries = objectEntries;
 		if (adapter != null) {
 			adapter.setObjectEntries(objectEntries);
 		}
+        if (sort) {
+            sortBy(sortCriterion);
+        }
+
 	}
 
 	public AdapterFileEntryRow getAdapter() {
@@ -102,5 +114,33 @@ public class FragmentFiles extends Fragment {
                 ((MainActivity)getActivity()).toggleButtonDisplayMode(mode);
             }
         }
+    }
+
+    public void sortBy(SortCriterion sortCriterion) {
+        this.sortCriterion = sortCriterion;
+        FilesSorting.sortBy(objectEntries, sortCriterion, sortSense);
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public void reverseSortingSense() {
+        sortSense = sortSense == SortSense.ASC ? SortSense.DESC : SortSense.ASC;
+
+        ArrayList<Object> res = new ArrayList<Object>();
+        int index_directory = 0;
+
+        for (Object object : objectEntries) {
+            if (object instanceof FileAndroid) {
+                if (((FileAndroid)object).getFile().isDirectory()){
+                    index_directory++;
+                    res.add(0, object);
+                } else {
+                    res.add(index_directory, object);
+                }
+            }
+        }
+        setEntriesList(res, false);
+        adapter.notifyDataSetChanged();
     }
 }

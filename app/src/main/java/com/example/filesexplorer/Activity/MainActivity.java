@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,9 +19,6 @@ import android.widget.Toast;
 
 import com.example.filesexplorer.AsyncTask.FilesSearching;
 import com.example.filesexplorer.Enum.SortCriterion;
-import com.example.filesexplorer.Enum.SortSense;
-import com.example.filesexplorer.Enum.SortType;
-import com.example.filesexplorer.Utils.FilesSorting;
 import com.example.filesexplorer.Widget.AlertDialogSortingFiles;
 import com.example.filesexplorer.Enum.DisplayMode;
 import com.example.filesexplorer.Model.FileAndroid;
@@ -61,7 +59,7 @@ public class MainActivity extends Activity {
         if (currentDirectory == null) {
             // Get the last directory saved in the preferences file
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            currentDirectory = new File(settings.getString("directory", "/sdcard/Download"));
+            currentDirectory = new File(settings.getString("directory", Environment.getExternalStorageDirectory().getAbsolutePath()));
         }
 
         // Init the alertDialog with the sorting list
@@ -139,11 +137,9 @@ public class MainActivity extends Activity {
             Intent i = new Intent(this, UserSettingsActivity.class);
             startActivityForResult(i, RESULT_SETTINGS);
         } else if (id == R.id.action_sorting) {
-            alertDialogSorting.setDirectory(currentDirectory);
             alertDialogSorting.show();
         } else if (id == R.id.action_sorting_sense) {
-            alertDialogSorting.setDirectory(currentDirectory);
-            alertDialogSorting.reverseSortingSense();
+            fragmentFiles.reverseSortingSense();
         } else if (id == R.id.action_display) {
             fragmentFiles.toggleDisplayMode();
         } else if (id == R.id.action_search_all_documents) {
@@ -195,49 +191,35 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void openDirectory(File file, SortCriterion sortCriterion, SortSense sortSense) {
+    public void openDirectory(File file) {
         File[] arrayFiles = file.listFiles();
 
         if (arrayFiles != null) {
-            ArrayList<File> files = new ArrayList<File>();
-
-            Collections.addAll(files, arrayFiles);
-
             currentDirectory = file;
-            FilesSorting.sortBy(files, sortCriterion, sortSense);
 
+            ArrayList<File> files = new ArrayList<>();
+            Collections.addAll(files, arrayFiles);
             updateFragmentFiles(files);
 
-            if (currentDirectory.getPath().equals("/")) {
-                getActionBar().setHomeButtonEnabled(false);
-                getActionBar().setDisplayHomeAsUpEnabled(false);
-            } else {
-                getActionBar().setHomeButtonEnabled(true);
-                getActionBar().setDisplayHomeAsUpEnabled(true);
+            if (getActionBar() != null) {
+                if (currentDirectory.getPath().equals("/")) {
+                    getActionBar().setHomeButtonEnabled(false);
+                    getActionBar().setDisplayHomeAsUpEnabled(false);
+                } else {
+                    getActionBar().setHomeButtonEnabled(true);
+                    getActionBar().setDisplayHomeAsUpEnabled(true);
+                }
             }
         } else {
             Toast.makeText(this, "Cannot open this directory for some reason", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Surcharge
-    public void openDirectory(FileAndroid fileAndroid) {
-        openDirectory(fileAndroid.getFile(), alertDialogSorting.getSortCriterion(), alertDialogSorting.getSortSense());
-    }
-
-    public void openDirectory(File file, SortCriterion sortCriterion) {
-        openDirectory(file, sortCriterion, alertDialogSorting.getSortSense());
-    }
-
-    public void openDirectory(File file) {
-        openDirectory(file, alertDialogSorting.getSortCriterion(), alertDialogSorting.getSortSense());
-    }
-
     // Update the FragmentFiles with the ArrayList of File in parameter
     // If hasParent is at true, the first element of the ArrayList is this parent
     public void updateFragmentFiles(ArrayList<File> files) {
         try {
-            ArrayList<Object> objects = new ArrayList<Object>();
+            ArrayList<Object> objects = new ArrayList<>();
 
             for (File file : files) {
                 if (isHiddenFileShowed || !file.isHidden()) {
@@ -245,7 +227,7 @@ public class MainActivity extends Activity {
                 }
             }
 
-            fragmentFiles.setEntriesList(objects);
+            fragmentFiles.setEntriesList(objects, true);
             if (fragmentFiles.getAdapter() != null) {
                 fragmentFiles.getAdapter().notifyDataSetChanged();
             }
@@ -256,6 +238,10 @@ public class MainActivity extends Activity {
             e.printStackTrace();
             Toast.makeText(this, "Exception...", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void sortFragmentFilesBy(SortCriterion sortCriterion) {
+        fragmentFiles.sortBy(sortCriterion);
     }
 
     public void openFile(FileAndroid fileAndroid) {
