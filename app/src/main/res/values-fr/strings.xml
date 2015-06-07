@@ -77,4 +77,6 @@
     </string-array>
 
     <string name="title_activity_main_application">Explorateur de fichier</string>
+    <string name="Search">Recherche</string>
+    <string name="search_no_result_found">Aucun résultat trouvé</string>
 </resources>

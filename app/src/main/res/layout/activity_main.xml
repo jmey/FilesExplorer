@@ -1,15 +1,13 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     tools:context="com.example.filesexplorer.Activity.MainActivity"
     android:background="@color/white"
-    android:columnCount="1"
-    android:rowCount="2"
     >
 
     <TextView
-        android:layout_row="0"
         android:id="@+id/textViewChemin"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
@@ -37,4 +35,19 @@
         </FrameLayout>
     </ScrollView>
 
-</GridLayout>
+    <ProgressBar
+        android:id="@+id/progress_bar_searching"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/textview_noresultfound"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="@string/search_no_result_found"
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
+
+</LinearLayout>
