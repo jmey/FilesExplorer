@@ -160,6 +160,8 @@ public class MainActivity extends Activity {
             if (resultsSearchingDisplayed) {
                 openDirectory(currentDirectory);
                 resultsSearchingDisplayed = false;
+                FilesSearching.getInstance().cancelSearching();
+                showFragmentFiles();
             } else if (!currentDirectory.getPath().equals("/")) {
                 openDirectory(currentDirectory.getParentFile());
             }
