@@ -34,6 +34,15 @@ public class FilesSearching {
         filesSearchingAsyncTask.execute();
     }
 
+    public void cancelSearching() {
+        if (filesSearchingAsyncTask != null) {
+            filesSearchingAsyncTask.cancel(true);
+            filesSearchingAsyncTask = null;
+        }
+    }
+
+
+
     class FilesSearchingAsyncTask extends AsyncTask<Void, Integer, ArrayList<File>> {
         private MainActivity activity;
         private String pattern;
@@ -41,6 +50,10 @@ public class FilesSearching {
         public FilesSearchingAsyncTask(MainActivity activity, String pattern) {
             this.activity = activity;
             this.pattern = pattern;
+        }
+
+        public void onPreExecute() {
+            activity.showProgressBarSearching();
         }
 
         @Override
@@ -81,7 +94,13 @@ public class FilesSearching {
         @Override
         protected void onPostExecute(ArrayList<File> files) {
             if (files != null) {
-                activity.updateFragmentFiles(files);
+
+                if (files.size() == 0) {
+                    activity.showTextViewNoResultFound();
+                } else {
+                    activity.updateFragmentFiles(files);
+                    activity.showFragmentFiles();
+                }
             }
         }
     }

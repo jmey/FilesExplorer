@@ -3,6 +3,7 @@ package com.example.filesexplorer.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,8 +14,13 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.filesexplorer.AsyncTask.FilesSearching;
@@ -38,6 +44,9 @@ public class MainActivity extends Activity {
 //	private final String TAG = getClass().getSimpleName();
     private MainActivity activity;
 	private static FragmentFiles fragmentFiles;
+    private ProgressBar progressBarSearching;
+    private FrameLayout frameLayout;
+    private TextView textViewNoResultFound;
     private static File currentDirectory;
     private Menu menu;
 
@@ -56,6 +65,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         activity = this;
 
+        progressBarSearching = (ProgressBar)findViewById(R.id.progress_bar_searching);
+        frameLayout = (FrameLayout)findViewById(R.id.fragment_container_files);
+        textViewNoResultFound = (TextView) findViewById(R.id.textview_noresultfound);
+
         if (currentDirectory == null) {
             // Get the last directory saved in the preferences file
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -72,12 +85,16 @@ public class MainActivity extends Activity {
         if (fragmentFiles == null) {
             fragmentFiles = new FragmentFiles();
         }
+
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_files, fragmentFiles);
         transaction.commit();
 
         // Fill the fragment with the files of the currentDirectory
         openDirectory(currentDirectory);
+
+        // If a search is running, it cancels
+        FilesSearching.getInstance().cancelSearching();
     }
 
     @Override
@@ -112,6 +129,8 @@ public class MainActivity extends Activity {
                     FilesSearching.getInstance().searchFilesByAsyncTask(activity, newText);
                 } else {
                     openDirectory(currentDirectory);
+                    showFragmentFiles();
+                    FilesSearching.getInstance().cancelSearching();
                 }
                 return true;
             }
@@ -294,6 +313,24 @@ public class MainActivity extends Activity {
                 Toast.makeText(this, "Please select a file", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void showFragmentFiles() {
+        progressBarSearching.setVisibility(View.GONE);
+        frameLayout.setVisibility(View.VISIBLE);
+        textViewNoResultFound.setVisibility(View.GONE);
+    }
+
+    public void showProgressBarSearching() {
+        progressBarSearching.setVisibility(View.VISIBLE);
+        frameLayout.setVisibility(View.GONE);
+        textViewNoResultFound.setVisibility(View.GONE);
+    }
+
+    public void showTextViewNoResultFound() {
+        progressBarSearching.setVisibility(View.GONE);
+        frameLayout.setVisibility(View.GONE);
+        textViewNoResultFound.setVisibility(View.VISIBLE);
     }
 
     public File getCurrentDirectory() {
