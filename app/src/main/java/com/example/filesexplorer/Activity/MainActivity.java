@@ -11,10 +11,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.filesexplorer.AsyncTask.FilesSearching;
@@ -231,9 +235,15 @@ public class MainActivity extends Activity {
             if (fragmentFiles.getAdapter() != null) {
                 fragmentFiles.getAdapter().notifyDataSetChanged();
             }
-            if (getActionBar() != null) {
-                getActionBar().setTitle(currentDirectory.getPath());
+
+            TextView textChemin  = (TextView) findViewById(R.id.textViewChemin);
+            if(textChemin != null) {
+                // Si la racine ne pas mettre de '/' derrière le nom du dossier
+                textChemin.setText( currentDirectory.getPath().equals("/") ?
+                        currentDirectory.getPath() :
+                        currentDirectory.getPath()+"/");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Exception...", Toast.LENGTH_SHORT).show();
@@ -306,5 +316,8 @@ public class MainActivity extends Activity {
         } else if (mode == DisplayMode.GRID) {
             menu.findItem(R.id.action_display).setIcon(R.drawable.icon_list);
         }
+    }
+
+    public void onTextCheminDoubleClick() {
     }
 }

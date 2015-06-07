@@ -15,7 +15,7 @@
 	        android:layout_width="100dp"
 	        android:layout_height="100dp"
 	        android:padding="4dp"
-	        android:src="@drawable/icon_folder">
+	        android:src="@drawable/ic_launcher">
 	    </ImageView>
 
         <LinearLayout

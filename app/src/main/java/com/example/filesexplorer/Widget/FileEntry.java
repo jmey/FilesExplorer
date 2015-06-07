@@ -1,10 +1,13 @@
 package com.example.filesexplorer.Widget;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +23,7 @@ import com.example.filesexplorer.AsyncTask.ProxyPicture;
 import com.example.filesexplorer.R;
 import com.example.filesexplorer.Utils.FileSizeFormater;
 
-public class FileEntryRow extends RelativeLayout implements IObserver {
+public class FileEntry extends RelativeLayout implements IObserver {
 //	final private static String TAG =  FileEntryRow.class.getSimpleName();
 	
 	private RelativeLayout layoutItem;
@@ -32,7 +35,7 @@ public class FileEntryRow extends RelativeLayout implements IObserver {
 	private TextView dateTextView;
 	private FileAndroid file;
 
-	public FileEntryRow(Context context, DisplayMode mode) {
+	public FileEntry(Context context, DisplayMode mode) {
 		super(context);
 		this.context = context;
 
