@@ -3,7 +3,6 @@ package com.example.filesexplorer.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -45,11 +43,14 @@ public class MainActivity extends Activity {
 //	private final String TAG = getClass().getSimpleName();
     private MainActivity activity;
 	private static FragmentFiles fragmentFiles;
-    private ProgressBar progressBarSearching;
-    private FrameLayout frameLayout;
-    private TextView textViewNoResultFound;
     private static File currentDirectory;
     private Menu menu;
+
+    // UI
+    private TextView textViewChemin;
+    private TextView textViewNoResultFound;
+    private ProgressBar progressBarSearching;
+    private FrameLayout frameLayout;
 
     private AlertDialogSortingFiles alertDialogSorting = null;
 
@@ -70,6 +71,7 @@ public class MainActivity extends Activity {
         progressBarSearching = (ProgressBar)findViewById(R.id.progress_bar_searching);
         frameLayout = (FrameLayout)findViewById(R.id.fragment_container_files);
         textViewNoResultFound = (TextView) findViewById(R.id.textview_noresultfound);
+        textViewChemin = (TextView) findViewById(R.id.textViewChemin);
 
         if (currentDirectory == null) {
             // Get the last directory saved in the preferences file
@@ -288,6 +290,15 @@ public class MainActivity extends Activity {
             if (fragmentFiles.getAdapter() != null) {
                 fragmentFiles.getAdapter().notifyDataSetChanged();
             }
+
+            TextView textChemin  = (TextView) findViewById(R.id.textViewChemin);
+            if(textChemin != null) {
+                // Si la racine ne pas mettre de '/' derrière le nom du dossier
+                textChemin.setText( currentDirectory.getPath().equals("/") ?
+                        currentDirectory.getPath() :
+                        currentDirectory.getPath()+"/");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Exception...", Toast.LENGTH_SHORT).show();
@@ -352,12 +363,16 @@ public class MainActivity extends Activity {
 
     public void showFragmentFiles() {
         progressBarSearching.setVisibility(View.GONE);
-        frameLayout.setVisibility(View.VISIBLE);
         textViewNoResultFound.setVisibility(View.GONE);
+
+        textViewChemin.setVisibility(View.VISIBLE);
+        frameLayout.setVisibility(View.VISIBLE);
     }
 
     public void showProgressBarSearching() {
         progressBarSearching.setVisibility(View.VISIBLE);
+
+        textViewChemin.setVisibility(View.GONE);
         frameLayout.setVisibility(View.GONE);
         textViewNoResultFound.setVisibility(View.GONE);
     }
@@ -365,6 +380,8 @@ public class MainActivity extends Activity {
     public void showTextViewNoResultFound() {
         progressBarSearching.setVisibility(View.GONE);
         frameLayout.setVisibility(View.GONE);
+        textViewChemin.setVisibility(View.GONE);
+
         textViewNoResultFound.setVisibility(View.VISIBLE);
     }
 
@@ -378,5 +395,9 @@ public class MainActivity extends Activity {
         } else if (mode == DisplayMode.GRID) {
             menu.findItem(R.id.action_display).setIcon(R.drawable.icon_list);
         }
+    }
+
+    public void onTextCheminDoubleClick() {
+
     }
 }

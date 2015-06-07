@@ -131,7 +131,7 @@ public class FileAndroid implements IObservable {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

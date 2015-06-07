@@ -51,16 +51,10 @@ public abstract class FilesSorting {
                         result = 0;
                     }
                 } else if (_criterion == SortCriterion.DATE) {
-                    long f1DateTime = _f1.getFile().lastModified();
-                    long f2DateTime = _f2.getFile().lastModified();
-
-                    if (f1DateTime < f2DateTime) {
-                        result = -1;
-                    } else if (f1DateTime > f2DateTime) {
-                        result = 1;
-                    } else {
-                        result = 0;
-                    }
+                    Date f1Date = new Date(_f1.getFile().lastModified());
+                    Date f2Date = new Date(_f1.getFile().lastModified());
+                    boolean resTest = (f1Date.getTime() - f2Date.getTime()) < 0;
+                    result = resTest ? 1 : -1;
                 }
 
                 return sortingSense*result;

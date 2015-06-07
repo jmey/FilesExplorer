@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.example.filesexplorer.Enum.DisplayMode;
-import com.example.filesexplorer.Widget.FileEntryRow;
+import com.example.filesexplorer.Widget.FileEntry;
 import com.example.filesexplorer.Model.FileAndroid;
 
 public class AdapterFileEntryRow extends BaseAdapter {
@@ -31,9 +31,9 @@ public class AdapterFileEntryRow extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// Recycles the view (doesn't initialize it each time, but just modifies the content)
 		if (convertView == null) {
-			convertView = new FileEntryRow(context, mode);
+			convertView = new FileEntry(context, mode);
 		}
-		((FileEntryRow)convertView).update((FileAndroid)objectEntries.get(position));
+		((FileEntry)convertView).update((FileAndroid)objectEntries.get(position));
 
 		return convertView;
 	}

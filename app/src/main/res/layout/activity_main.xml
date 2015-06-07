@@ -1,27 +1,50 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.filesexplorer.Activity.MainActivity" >
-
-    <FrameLayout 
-        android:id="@+id/fragment_container_files"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    </FrameLayout>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="com.example.filesexplorer.Activity.MainActivity"
+    android:background="@color/white" >
 
     <ProgressBar
         android:id="@+id/progress_bar_searching"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textview_noresultfound"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:text="@string/search_no_result_found"
-        android:gravity="center_horizontal"
-        android:visibility="gone"/>
+        android:gravity="center"
+        android:visibility="gone" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/textViewChemin"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="#E1E5E6"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:ellipsize="start"
+        android:editable="false"
+        android:text="..." />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+
+        <FrameLayout
+            android:id="@+id/fragment_container_files"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/white">
+        </FrameLayout>
+    </ScrollView>
+
+</LinearLayout>
