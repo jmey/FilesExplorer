@@ -7,6 +7,20 @@
     android:background="@color/white"
     >
 
+    <ProgressBar
+        android:id="@+id/progress_bar_searching"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textview_noresultfound"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="@string/search_no_result_found"
+        android:gravity="center"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/textViewChemin"
         android:layout_width="fill_parent"
@@ -34,20 +48,5 @@
             android:background="@color/white">
         </FrameLayout>
     </ScrollView>
-
-    <ProgressBar
-        android:id="@+id/progress_bar_searching"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-
-    <TextView
-        android:id="@+id/textview_noresultfound"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="@string/search_no_result_found"
-        android:gravity="center_horizontal"
-        android:visibility="gone" />
 
 </LinearLayout>
