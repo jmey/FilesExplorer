@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.filesexplorer.AsyncTask.FilesSearching;
 import com.example.filesexplorer.Enum.SortCriterion;
+import com.example.filesexplorer.Utils.FileType;
 import com.example.filesexplorer.Widget.AlertDialogSortingFiles;
 import com.example.filesexplorer.Enum.DisplayMode;
 import com.example.filesexplorer.Model.FileAndroid;
@@ -53,6 +54,7 @@ public class MainActivity extends Activity {
     private AlertDialogSortingFiles alertDialogSorting = null;
 
     private boolean isHiddenFileShowed;
+    private static boolean resultsSearchingDisplayed = false;
 
     /** If the activity is called by another application to get a string file path result, mode_library = true
      *  If the explorer is called by itself, mode_library is at false. False by default
@@ -91,7 +93,14 @@ public class MainActivity extends Activity {
         transaction.commit();
 
         // Fill the fragment with the files of the currentDirectory
-        openDirectory(currentDirectory);
+        if (!resultsSearchingDisplayed) {
+            openDirectory(currentDirectory);
+        } else {
+            if (getActionBar() != null) {
+                getActionBar().setHomeButtonEnabled(true);
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+        }
 
         // If a search is running, it cancels
         FilesSearching.getInstance().cancelSearching();
@@ -146,7 +155,10 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            if (!currentDirectory.getPath().equals("/")) {
+            if (resultsSearchingDisplayed) {
+                openDirectory(currentDirectory);
+                resultsSearchingDisplayed = false;
+            } else if (!currentDirectory.getPath().equals("/")) {
                 openDirectory(currentDirectory.getParentFile());
             }
         } else if (id == R.id.action_about) {
@@ -162,18 +174,43 @@ public class MainActivity extends Activity {
         } else if (id == R.id.action_display) {
             fragmentFiles.toggleDisplayMode();
         } else if (id == R.id.action_search_all_documents) {
-
+            searchFilesByType(FileType.DOCUMENT);
         } else if (id == R.id.action_search_all_images) {
-
+            searchFilesByType(FileType.PICTURE);
         } else if (id == R.id.action_search_all_musics) {
-
+            searchFilesByType(FileType.MUSIC);
         } else if (id == R.id.action_search_all_videos) {
-
+            searchFilesByType(FileType.VIDEO);
         } else {
                 return super.onOptionsItemSelected(item);
         }
 
         return true;
+    }
+
+    private void searchFilesByType(int type) {
+        resultsSearchingDisplayed = true;
+        FilesSearching.getInstance().searchFilesByType(this, type);
+
+        if (getActionBar() != null) {
+            getActionBar().setHomeButtonEnabled(true);
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+
+            switch(type) {
+                case FileType.DOCUMENT:
+                    getActionBar().setTitle("Searching of all documents...");
+                    break;
+                case FileType.MUSIC:
+                    getActionBar().setTitle("Searching of all musics...");
+                    break;
+                case FileType.PICTURE:
+                    getActionBar().setTitle("Searching of all pictures...");
+                    break;
+                case FileType.VIDEO:
+                    getActionBar().setTitle("Searching of all videos...");
+                    break;
+            }
+        }
     }
 
     @Override
@@ -221,6 +258,7 @@ public class MainActivity extends Activity {
             updateFragmentFiles(files);
 
             if (getActionBar() != null) {
+                getActionBar().setTitle(currentDirectory.getPath());
                 if (currentDirectory.getPath().equals("/")) {
                     getActionBar().setHomeButtonEnabled(false);
                     getActionBar().setDisplayHomeAsUpEnabled(false);
@@ -249,9 +287,6 @@ public class MainActivity extends Activity {
             fragmentFiles.setEntriesList(objects, true);
             if (fragmentFiles.getAdapter() != null) {
                 fragmentFiles.getAdapter().notifyDataSetChanged();
-            }
-            if (getActionBar() != null) {
-                getActionBar().setTitle(currentDirectory.getPath());
             }
         } catch (Exception e) {
             e.printStackTrace();

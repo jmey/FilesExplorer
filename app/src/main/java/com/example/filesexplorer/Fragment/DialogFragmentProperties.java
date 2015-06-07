@@ -59,7 +59,10 @@ public class DialogFragmentProperties extends DialogFragment {
             ((TextView) v.findViewById(R.id.file_special_text)).setText(elts);
         }
         else if(file.isPicture()){
-            String file_resolution = String.valueOf(file.getBitmap().getWidth()) + " x " + String.valueOf(file.getBitmap().getHeight());
+            String file_resolution = "NaN x NaN";
+            if (file.getBitmap() != null) {
+                file_resolution = String.valueOf(file.getBitmap().getWidth()) + " x " + String.valueOf(file.getBitmap().getHeight());
+            }
 
             ((TextView) v.findViewById(R.id.file_type_text)).setText(R.string.type_picture);
             ((TextView) v.findViewById(R.id.file_special_label)).setText(R.string.resolution);
