@@ -11,8 +11,8 @@
     <string name="app_version">v.0.001</string>
     <string name="app_description">Un explorateur de fichier conçu pour offrir simplicité et rapidité.</string>
     <string name="action_about">A propos</string>
-    <string name="action_sorting">Tri</string>
-    <string name="action_sorting_sense">Sens de tri</string>
+    <string name="action_sorting">Trier par</string>
+    <string name="action_sorting_sense">Inverser le tri</string>
     <string name="action_displaying">Affichage</string>
     <string name="action_display_list">Liste</string>
     <string name="action_display_grid">Grille</string>
@@ -77,6 +77,6 @@
     </string-array>
 
     <string name="title_activity_main_application">Explorateur de fichier</string>
-    <string name="Search">Recherche</string>
+    <string name="search">Recherche</string>
     <string name="search_no_result_found">Aucun résultat trouvé</string>
 </resources>

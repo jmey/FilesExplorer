@@ -5,60 +5,65 @@
 
     <item
         android:id="@+id/action_search"
-        android:title="@string/Search"
+        android:title="@string/search"
         android:icon="@drawable/ic_action_name"
-        android:showAsAction="ifRoom|collapseActionView"
+        android:showAsAction="always|collapseActionView"
         android:actionViewClass="android.widget.SearchView"/>
 
     <item
-        android:id="@+id/action_sorting"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_sorting"
-        android:enabled="true"/>
-
-    <item
-        android:id="@+id/action_sorting_sense"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_sorting_sense"
-        android:enabled="true"/>
-
-    <item
         android:id="@+id/action_display"
-        android:title="display"
+        android:title="@string/display"
         android:icon="@drawable/icon_list"
-        android:showAsAction="ifRoom"/>
+        android:showAsAction="always"/>
+
     <item
         android:id="@+id/action_search_all_images"
-        android:showAsAction="never"
         android:title="@string/action_search_all_images"
+        android:icon="@drawable/icon_image"
+        android:showAsAction="always"
         android:enabled="true"/>
 
     <item
         android:id="@+id/action_search_all_videos"
-        android:showAsAction="never"
         android:title="@string/action_search_all_videos"
+        android:icon="@drawable/icon_video"
+        android:showAsAction="always"
         android:enabled="true"/>
 
     <item
         android:id="@+id/action_search_all_documents"
-        android:showAsAction="never"
         android:title="@string/action_search_all_documents"
+        android:icon="@drawable/icon_document"
+        android:showAsAction="always"
         android:enabled="true"/>
 
     <item
         android:id="@+id/action_search_all_musics"
-        android:showAsAction="never"
         android:title="@string/action_search_all_musics"
+        android:icon="@drawable/icon_music"
+        android:showAsAction="always"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_sorting"
+        android:title="@string/action_sorting"
+        android:showAsAction="never"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/action_sorting_sense"
+        android:title="@string/action_sorting_sense"
+        android:showAsAction="never"
         android:enabled="true"/>
 
     <item
         android:id="@+id/action_settings"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:title="@string/action_settings"
+        android:showAsAction="never"/>
 
     <item
         android:id="@+id/action_about"
-        android:showAsAction="never"
-        android:title="@string/action_about"/>
+        android:title="@string/action_about"
+        android:showAsAction="never"/>
 
 </menu>
