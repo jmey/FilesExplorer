@@ -80,4 +80,10 @@
     <string name="search">Search</string>
     <string name="search_no_result_found">No result found</string>
     <string name="display">Display</string>
+
+    <string name="searching_all_documents">Searching all documents...</string>
+    <string name="searching_all_musics">Searching all musics...</string>
+    <string name="searching_all_pictures">Searching all pictures...</string>
+    <string name="searching_all_videos">Searching all videos...</string>
+
 </resources>

@@ -106,7 +106,6 @@ public class FilesSearching {
         @Override
         protected void onPostExecute(ArrayList<File> files) {
             if (files != null) {
-
                 if (files.size() == 0) {
                     activity.showTextViewNoResultFound();
                 } else {

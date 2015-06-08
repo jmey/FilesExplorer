@@ -79,4 +79,9 @@
     <string name="title_activity_main_application">Explorateur de fichier</string>
     <string name="search">Recherche</string>
     <string name="search_no_result_found">Aucun résultat trouvé</string>
+
+    <string name="searching_all_documents">Recherche de tous les documents...</string>
+    <string name="searching_all_musics">Recherche de toutes les musiques...</string>
+    <string name="searching_all_pictures">Recherche de toutes les images...</string>
+    <string name="searching_all_videos">Recherche de toutes les vidéos...</string>
 </resources>

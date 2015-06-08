@@ -2,6 +2,7 @@ package com.example.filesexplorer.Activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -202,16 +203,16 @@ public class MainActivity extends Activity {
 
             switch(type) {
                 case FileType.DOCUMENT:
-                    getActionBar().setTitle("Searching of all documents...");
+                    getActionBar().setTitle(getResources().getString(R.string.searching_all_documents));
                     break;
                 case FileType.MUSIC:
-                    getActionBar().setTitle("Searching of all musics...");
+                    getActionBar().setTitle(getResources().getString(R.string.searching_all_musics));
                     break;
                 case FileType.PICTURE:
-                    getActionBar().setTitle("Searching of all pictures...");
+                    getActionBar().setTitle(getResources().getString(R.string.searching_all_pictures));
                     break;
                 case FileType.VIDEO:
-                    getActionBar().setTitle("Searching of all videos...");
+                    getActionBar().setTitle(getResources().getString(R.string.searching_all_videos));
                     break;
             }
         }
@@ -262,7 +263,7 @@ public class MainActivity extends Activity {
             updateFragmentFiles(files);
 
             if (getActionBar() != null) {
-                getActionBar().setTitle(currentDirectory.getPath());
+                getActionBar().setTitle(getResources().getString(R.string.app_name));
                 if (currentDirectory.getPath().equals("/")) {
                     getActionBar().setHomeButtonEnabled(false);
                     getActionBar().setDisplayHomeAsUpEnabled(false);
@@ -300,7 +301,6 @@ public class MainActivity extends Activity {
                         currentDirectory.getPath() :
                         currentDirectory.getPath()+"/");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Exception...", Toast.LENGTH_SHORT).show();
@@ -397,9 +397,5 @@ public class MainActivity extends Activity {
         } else if (mode == DisplayMode.GRID) {
             menu.findItem(R.id.action_display).setIcon(R.drawable.icon_list);
         }
-    }
-
-    public void onTextCheminDoubleClick() {
-
     }
 }
